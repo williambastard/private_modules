@@ -40,7 +40,4 @@ export default abstract class ApiDefaultResponse implements ApiInterface {
         const get = ApiResponseMap.map.get(key) ?? error;
         return get as ApiInterface;
     }
-    static toMap(defaultResponse: string): Map<string, Object> {
-        return JSON.parse(JSON.stringify(ApiDefaultResponse.get(defaultResponse)));
-    }
 }

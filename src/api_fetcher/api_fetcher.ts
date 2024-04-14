@@ -11,10 +11,10 @@ export default class ApiFetcher implements ApiFetcherInterface {
         this._request = _request;
         this.initHeader(_request, _mstarget);
     }
-    async fetch(): Promise<Map<any, any>> {
+    async fetch(): Promise<ApiFetcherInterface> {
         const response = await fetch(`${this.getTarget()}`, this.getFetchOptions())
         const _ms_response = await response.json();
-        return _ms_response ?? ApiDefaultResponse.toJSON("ERROR");
+        return _ms_response ?? ApiDefaultResponse.get("ERROR");
     }
 
     setHeaderKey(headerKey: string, headerValue: string) {
