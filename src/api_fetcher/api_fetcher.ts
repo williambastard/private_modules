@@ -1,43 +1,70 @@
+import { Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
 
 export default class ApiFetcher implements ApiFetcherInterface {
-    headers: Headers;
-    method: string;
-    body?: any;
+    _request: Request;
+    _headers: Headers = new Headers();
+    _options: Object = {};
 
-    constructor(method: string) {
-        this.headers = new Headers({
-            'author': 'William BASTARD',
-            'content-type': 'application/json'
-        });
-        this.method = method;
+    constructor(_request: Request, _mstarget: string) {
+        this._request = _request;
+        this.initHeader(_request, _mstarget);
     }
-
-    async fetch(_apiFetcherOptions: ApiFetcherInterface): Promise<Object> {
-        const response = await fetch(`${this.getTarget()}`, _apiFetcherOptions)
+    async fetch(): Promise<Object> {
+        const response = await fetch(`${this.getTarget()}`, this.getFetchOptions())
         const _ms_response = await response.json();
         return _ms_response ?? {};
     }
 
-    getHeader(headerKey: string) {
-        return this.headers.get(headerKey);
+    setHeaderKey(headerKey: string, headerValue: string) {
+        this._headers.set(headerKey, headerValue);
     }
-    setHeader(headerKey: string, headerValue: string) {
-        this.headers.set(headerKey, headerValue);
+
+    setFetchOption(_fetchOptionObject: Object) {
+        Object.assign(this._options, _fetchOptionObject);
     }
-    setHeaderObject(headerObjectOptions: Object) {
-        Object.assign(this.headers, headerObjectOptions);
+
+    getHeaderKey(headerKey: string) {
+        return this._headers.get(headerKey);
     }
-    setMethod(method: string) {
-        this.method = method;
+
+    getFetchOptions(): RequestInit {
+        this.initFetchOptions();
+        return this._options as RequestInit
     }
-    setBody(body: object) {
-        this.body = JSON.stringify(body);
+
+    getToken(): string {
+        return this._request.get('token') ?? "";
     }
+
+    getOrigin(): string {
+        return this._request.get('origin') ?? "";
+    }
+
     getTarget() {
-        return this.getHeader("ms-target-protocol") +
-            "://" + this.getHeader("ms-target-host") +
-            "/" + this.getHeader("ms-target-service") +
-            "/" + this.getHeader('ms-target-endpoint');
+        return this.getHeaderKey("ms-target-protocol") +
+            "://" + this.getHeaderKey("ms-target-service") +
+            "." + this.getHeaderKey("ms-target-host") +
+            "/" + this.getHeaderKey("ms-target-service") +
+            "/" + this.getHeaderKey('ms-target-endpoint');
+    }
+    initFetchOptions() {
+        this.setFetchOption(this._headers);
+        this.setFetchOption({ "method": this._request.method });
+        this.setFetchOption({ "body": this._request.body });
+    }
+    initHeader(_request: Request, _target: string) {
+        this.setHeaderKey('origin', this.getOrigin());
+        this.setHeaderKey('token', this.getToken());
+        this.setHeaderKey('credentials', 'include');
+        this.setHeaderKey('author', 'William BASTARD');
+        this.setHeaderKey('content-type', 'application/json');
+        this.setHeaderKey('accept', 'application/json');
+
+        this.setHeaderKey('ms-user-method', _request.method);
+        this.setHeaderKey('ms-target-service', _target);
+        this.setHeaderKey('ms-target-protocol', 'http');
+        this.setHeaderKey('ms-target-host', 'service.riptest:8282');
+        this.setHeaderKey('ms-target-endpoint', _request.url.replace('/', ''));
     }
 }
