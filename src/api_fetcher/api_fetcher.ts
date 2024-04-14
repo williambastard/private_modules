@@ -58,11 +58,11 @@ export default class Call implements ApiFetcherInterface {
         this._headers.append(headerKey, headerValue);
     }
 
-    getHeaderKey(headerKey: string) {
-        headerKey = headerKey.split('-')
+    getHeaderKey(_headerKey: string) {
+        const _returnHeader = this._headers.get(_headerKey)?.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join('-');
-        return this._headers.get(headerKey);
+        return _returnHeader;
     }
 
     getToken(): string {

@@ -119,9 +119,10 @@ var Call = class {
     headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
     this._headers.append(headerKey, headerValue);
   }
-  getHeaderKey(headerKey) {
-    headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
-    return this._headers.get(headerKey);
+  getHeaderKey(_headerKey) {
+    var _a;
+    const _returnHeader = (_a = this._headers.get(_headerKey)) == null ? void 0 : _a.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+    return _returnHeader;
   }
   getToken() {
     var _a;
