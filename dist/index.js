@@ -110,7 +110,7 @@ var Call = class {
   }
   fetch() {
     return __async(this, null, function* () {
-      var _a, _b, _c;
+      var _a, _b;
       this.getFetchOptions();
       try {
         const response = yield fetch(`${this.getTarget()}`, this._options);
@@ -124,7 +124,7 @@ var Call = class {
         this.setData(_ms_user_data);
       } catch (UncaughtException) {
         let error = ApiJSON.get("HTTP_500");
-        error.message = (_c = UncaughtException == null ? void 0 : UncaughtException.toString()) != null ? _c : ApiJSON.get("HTTP_500").message;
+        error.details = UncaughtException;
         this.setIsOK(false);
         this.setStatus(500);
         this.setCallResponse(error);
