@@ -151,7 +151,6 @@ var Call = class {
     this.setHeaderKey("credentials", "include");
     this.setHeaderKey("author", "William BASTARD");
     this.setHeaderKey("content-type", "application/json");
-    this.setHeaderKey("accept", "application/json");
     this.setHeaderKey("ms-user-method", _request.method);
     this.setHeaderKey("ms-target-service", _target);
     this.setHeaderKey("ms-target-protocol", "http");
