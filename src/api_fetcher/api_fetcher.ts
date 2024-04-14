@@ -18,7 +18,8 @@ export default class Call implements ApiFetcherInterface {
         this.initHeader(_request, _mstarget);
     }
     async fetch(): Promise<Call> {
-        const response = await fetch(`${this.getTarget()}`, this.getFetchOptions())
+        this.getFetchOptions();
+        const response = await fetch(`${this.getTarget()}`, this._options)
         const _ms_response = await response.json();
         const _ms_user_data = _ms_response!.data ?? false;
         const _ms_user_session = _ms_user_data!.session ?? false;
@@ -47,10 +48,6 @@ export default class Call implements ApiFetcherInterface {
 
     setData(_data: any | false) {
         this._data = _data;
-    }
-
-    setFetchOption(_fetchOptionObject: Object) {
-        Object.assign(this._options, _fetchOptionObject);
     }
 
     setHeaderKey(headerKey: string, headerValue: string) {
@@ -90,9 +87,12 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-        this.setFetchOption({ "headers": this._headers });
-        this.setFetchOption({ "method": this._request.method });
-        this.setFetchOption({ "body": this._request.body });
+
+        Object.assign(this._options, {
+            "headers": this._headers,
+            "method": this._request.method,
+            "body": this._request.body
+        });
     }
     initHeader(_request: Request, _target: string) {
         this.setHeaderKey('origin', this.getOrigin());

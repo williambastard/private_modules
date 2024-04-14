@@ -111,7 +111,8 @@ var Call = class {
   fetch() {
     return __async(this, null, function* () {
       var _a, _b;
-      const response = yield fetch(`${this.getTarget()}`, this.getFetchOptions());
+      this.getFetchOptions();
+      const response = yield fetch(`${this.getTarget()}`, this._options);
       const _ms_response = yield response.json();
       const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
       const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
@@ -138,9 +139,6 @@ var Call = class {
   setData(_data) {
     this._data = _data;
   }
-  setFetchOption(_fetchOptionObject) {
-    Object.assign(this._options, _fetchOptionObject);
-  }
   setHeaderKey(headerKey, headerValue) {
     headerKey = headerKey.toLowerCase();
     headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
@@ -166,9 +164,11 @@ var Call = class {
     return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
   }
   initFetchOptions() {
-    this.setFetchOption({ "headers": this._headers });
-    this.setFetchOption({ "method": this._request.method });
-    this.setFetchOption({ "body": this._request.body });
+    Object.assign(this._options, {
+      "headers": this._headers,
+      "method": this._request.method,
+      "body": this._request.body
+    });
   }
   initHeader(_request, _target) {
     this.setHeaderKey("origin", this.getOrigin());

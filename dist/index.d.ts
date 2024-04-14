@@ -52,7 +52,6 @@ declare class Call implements ApiFetcherInterface {
     setSession(_session: any | false): void;
     setCallResponse(_callresponse: any): void;
     setData(_data: any | false): void;
-    setFetchOption(_fetchOptionObject: Object): void;
     setHeaderKey(headerKey: string, headerValue: string): void;
     getHeaderKey(headerKey: string): string | null;
     getToken(): string;
