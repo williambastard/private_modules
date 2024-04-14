@@ -1,7 +1,7 @@
 import { Response } from "express";
 import ApiInterface from "./api_interface";
 
-export class ApiConstructor {
+export class ApiParser {
     _response!: Response;
     _responseAPI?: ApiInterface;
 

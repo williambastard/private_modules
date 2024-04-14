@@ -27,7 +27,7 @@ export abstract class ApiResponseMap {
         ["ERROR", { statusCode: 500, message: "\"{CODE}\" Not found in default ApiDefaultResponse", data: {} }],
     ])
 }
-export default abstract class ApiDefaultResponse implements ApiInterface {
+export default abstract class ApiJSON implements ApiInterface {
     statusCode!: number;
     message!: string;
     token?: string | undefined;
