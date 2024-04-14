@@ -33,7 +33,7 @@ export default class Call implements ApiFetcherInterface {
         }
         catch (UncaughtException) {
             let error = ApiJSON.get("HTTP_500");
-            error.message = UncaughtException?.toString() ?? ApiJSON.get("HTTP_500").message;
+            error.details = UncaughtException;
 
             this.setIsOK(false);
             this.setStatus(500);
