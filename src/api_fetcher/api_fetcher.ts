@@ -90,7 +90,7 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-        this.setFetchOption({ "headers": JSON.parse(JSON.stringify(this._headers)) });
+        this.setFetchOption({ "headers": this._headers });
         this.setFetchOption({ "method": this._request.method });
         this.setFetchOption({ "body": this._request.body });
     }
