@@ -87,13 +87,17 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-        Object.assign(this._options, {
-            "headers": this._headers,
-            "method": this._request.method
-        });
         if (["POST", "PATCH", "PUT", "DELETE"].includes(this._request.method)) {
             Object.assign(this._options, {
+                "headers": this._headers,
+                "method": this._request.method,
                 "body": JSON.stringify(this._request.body)
+
+            });
+        } else {
+            Object.assign(this._options, {
+                "headers": this._headers,
+                "method": this._request.method
             });
         }
     }
