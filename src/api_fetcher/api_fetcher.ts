@@ -54,11 +54,16 @@ export default class Call implements ApiFetcherInterface {
     }
 
     setHeaderKey(headerKey: string, headerValue: string) {
-        this._headers.set(headerKey, headerValue);
+        headerKey = headerKey.toLowerCase();
+        this._headers.set(headerKey.split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join('-'), headerValue);
     }
 
     getHeaderKey(headerKey: string) {
-        return this._headers.get(headerKey);
+        return this._headers.get(headerKey.split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join('-'));
     }
 
     getToken(): string {
@@ -84,21 +89,21 @@ export default class Call implements ApiFetcherInterface {
 
     initFetchOptions() {
         this.setFetchOption(this._headers);
-        this.setFetchOption({"method": this._request.method });
-        this.setFetchOption({"body": this._request.body });
+        this.setFetchOption({ "method": this._request.method });
+        this.setFetchOption({ "body": this._request.body });
     }
     initHeader(_request: Request, _target: string) {
-        this.setHeaderKey('Origin', this.getOrigin());
-        this.setHeaderKey('Token', this.getToken());
-        this.setHeaderKey('Credentials', 'include');
-        this.setHeaderKey('Author', 'William BASTARD');
-        this.setHeaderKey('Content-type', 'application/json');
-        this.setHeaderKey('Accept', 'application/json');
+        this.setHeaderKey('origin', this.getOrigin());
+        this.setHeaderKey('token', this.getToken());
+        this.setHeaderKey('credentials', 'include');
+        this.setHeaderKey('author', 'William BASTARD');
+        this.setHeaderKey('content-type', 'application/json');
+        this.setHeaderKey('accept', 'application/json');
 
-        this.setHeaderKey('Ms-user-method', _request.method);
-        this.setHeaderKey('Ms-target-service', _target);
-        this.setHeaderKey('Ms-target-protocol', 'http');
-        this.setHeaderKey('Ms-target-host', 'service.riptest:8282');
-        this.setHeaderKey('Ms-target-endpoint', _request.url.replace('/', ''));
+        this.setHeaderKey('ms-user-method', _request.method);
+        this.setHeaderKey('ms-target-service', _target);
+        this.setHeaderKey('ms-target-protocol', 'http');
+        this.setHeaderKey('ms-target-host', 'service.riptest:8282');
+        this.setHeaderKey('ms-target-endpoint', _request.url.replace('/', ''));
     }
 }
