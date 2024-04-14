@@ -1,8 +1,7 @@
 import { Response } from "express";
 import ApiInterface from "./api_interface";
-import * as ApiConstants from "./api_constantes";
 
-export class Constructor {
+export class ApiConstructor {
     _response!: Response;
     _responseAPI?: ApiInterface;
 
@@ -18,4 +17,3 @@ export class Constructor {
         return this._response.status(this._responseAPI!.statusCode).json(this._responseAPI);
     }
 }
-export default ApiConstants;
