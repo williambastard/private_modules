@@ -15,7 +15,7 @@ export default class Call implements ApiFetcherInterface {
         this._request = _request;
         this.initHeader(_request, _mstarget);
     }
-    async fetch(): Promise<ApiInterface> {
+    async fetch(): Promise<Call> {
         const response = await fetch(`${this.getTarget()}`, this.getFetchOptions())
         const _ms_response = await response.json();
         const _ms_user_data = _ms_response!.data ?? false;
@@ -23,7 +23,7 @@ export default class Call implements ApiFetcherInterface {
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
         this.setIsOK(response.ok);
-        return _ms_response ?? ApiDefaultResponse.get("ERROR");
+        return this;
     }
 
     setIsOK(_isOK: boolean) {

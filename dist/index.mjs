@@ -91,7 +91,7 @@ var Call = class {
       this.setSession(_ms_user_session);
       this.setData(_ms_user_data);
       this.setIsOK(response.ok);
-      return _ms_response != null ? _ms_response : ApiJSON.get("ERROR");
+      return this;
     });
   }
   setIsOK(_isOK) {

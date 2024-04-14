@@ -42,7 +42,7 @@ declare class Call implements ApiFetcherInterface {
     _session: Map<any, any> | false;
     _isOK: boolean;
     constructor(_request: Request, _mstarget: string);
-    fetch(): Promise<ApiInterface>;
+    fetch(): Promise<Call>;
     setIsOK(_isOK: boolean): void;
     setSession(_session: Map<any, any> | false): void;
     setData(_data: Map<any, any> | false): void;
