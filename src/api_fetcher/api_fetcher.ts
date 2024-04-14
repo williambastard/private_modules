@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
+import ApiDefaultResponse from "../api_parser/api_constantes";
 
 export default class ApiFetcher implements ApiFetcherInterface {
     _request: Request;
@@ -10,10 +11,10 @@ export default class ApiFetcher implements ApiFetcherInterface {
         this._request = _request;
         this.initHeader(_request, _mstarget);
     }
-    async fetch(): Promise<Object> {
+    async fetch(): Promise<Map<any, any>> {
         const response = await fetch(`${this.getTarget()}`, this.getFetchOptions())
         const _ms_response = await response.json();
-        return _ms_response ?? {};
+        return _ms_response ?? ApiDefaultResponse.toJSON("ERROR");
     }
 
     setHeaderKey(headerKey: string, headerValue: string) {
