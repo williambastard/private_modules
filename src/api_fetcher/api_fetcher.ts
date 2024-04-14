@@ -58,7 +58,7 @@ export default class Call implements ApiFetcherInterface {
         headerKey = headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join('-');
-        this._headers.set(headerKey, headerValue);
+        this._headers.append(headerKey, headerValue);
     }
 
     getHeaderKey(headerKey: string) {
@@ -90,7 +90,7 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-        this.setFetchOption(JSON.parse(JSON.stringify(this._headers)));
+        this.setFetchOption({ "headers": JSON.parse(JSON.stringify(this._headers)) });
         this.setFetchOption({ "method": this._request.method });
         this.setFetchOption({ "body": this._request.body });
     }
