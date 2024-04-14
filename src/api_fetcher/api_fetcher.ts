@@ -13,9 +13,9 @@ export default class Call implements ApiFetcherInterface {
     _isOK: boolean = false;
     _callresponse: any = new Map();
 
-    constructor(_request: Request, _mstarget: string) {
+    constructor(_request: Request, _mstarget: string, _msendpoint: string) {
         this._request = _request;
-        this.initHeader(_mstarget);
+        this.initHeader(_mstarget, _msendpoint);
     }
     async fetch(): Promise<Call> {
         this.getFetchOptions();
@@ -101,7 +101,7 @@ export default class Call implements ApiFetcherInterface {
             });
         }
     }
-    initHeader(_mstarget: string) {
+    initHeader(_mstarget: string, _msendpoint: string) {
         this.setHeaderKey('origin', this.getOrigin());
         this.setHeaderKey('token', this.getToken());
         this.setHeaderKey('credentials', 'include');
@@ -113,6 +113,6 @@ export default class Call implements ApiFetcherInterface {
         this.setHeaderKey('ms-target-service', _mstarget);
         this.setHeaderKey('ms-target-protocol', 'http');
         this.setHeaderKey('ms-target-host', 'service.riptest:8282');
-        this.setHeaderKey('ms-target-endpoint', this._request.url.replace('/', ''));
+        this.setHeaderKey('ms-target-endpoint', _msendpoint);
     }
 }
