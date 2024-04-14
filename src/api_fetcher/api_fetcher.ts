@@ -7,9 +7,10 @@ export default class Call implements ApiFetcherInterface {
     _request: Request;
     _headers: Headers = new Headers();
     _options: Object = {};
-    _data: Map<any, any> | false = false;
-    _session: Map<any, any> | false = false;
+    _data: any | false = false;
+    _session: any | false = false;
     _isOK: boolean = false;
+    _callresponse: any = new Map();
 
     constructor(_request: Request, _mstarget: string) {
         this._request = _request;
@@ -20,6 +21,7 @@ export default class Call implements ApiFetcherInterface {
         const _ms_response = await response.json();
         const _ms_user_data = _ms_response!.data ?? false;
         const _ms_user_session = _ms_user_data!.session ?? false;
+        this.setCallResponse(_ms_user_session);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
         this.setIsOK(response.ok);
@@ -30,11 +32,15 @@ export default class Call implements ApiFetcherInterface {
         this._isOK = _isOK
     }
 
-    setSession(_session: Map<any, any> | false) {
+    setSession(_session: any | false) {
         this._session = _session;
     }
 
-    setData(_data: Map<any, any> | false) {
+    setCallResponse(_callresponse: any) {
+        this._callresponse = _callresponse;
+    }
+
+    setData(_data: any | false) {
         this._data = _data;
     }
 
@@ -56,18 +62,6 @@ export default class Call implements ApiFetcherInterface {
 
     getOrigin(): string {
         return this._request.get('origin') ?? "";
-    }
-
-    getIsOK(): boolean {
-        return this._isOK;
-    }
-
-    getSession(): Map<any, any> | false {
-        return this._session;
-    }
-
-    getData(): Map<any, any> | false {
-        return this._data;
     }
 
     getFetchOptions(): RequestInit {

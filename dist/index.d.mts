@@ -32,28 +32,28 @@ interface ApiFetcherInterface {
     _data: Map<any, any> | false;
     _session: Map<any, any> | false;
     _isOK: boolean;
+    _callresponse: Map<any, any>;
 }
 
 declare class Call implements ApiFetcherInterface {
     _request: Request;
     _headers: Headers;
     _options: Object;
-    _data: Map<any, any> | false;
-    _session: Map<any, any> | false;
+    _data: any | false;
+    _session: any | false;
     _isOK: boolean;
+    _callresponse: any;
     constructor(_request: Request, _mstarget: string);
     fetch(): Promise<Call>;
     setIsOK(_isOK: boolean): void;
-    setSession(_session: Map<any, any> | false): void;
-    setData(_data: Map<any, any> | false): void;
+    setSession(_session: any | false): void;
+    setCallResponse(_callresponse: any): void;
+    setData(_data: any | false): void;
     setFetchOption(_fetchOptionObject: Object): void;
     setHeaderKey(headerKey: string, headerValue: string): void;
     getHeaderKey(headerKey: string): string | null;
     getToken(): string;
     getOrigin(): string;
-    getIsOK(): boolean;
-    getSession(): Map<any, any> | false;
-    getData(): Map<any, any> | false;
     getFetchOptions(): RequestInit;
     getTarget(): string;
     initFetchOptions(): void;

@@ -103,6 +103,7 @@ var Call = class {
     this._data = false;
     this._session = false;
     this._isOK = false;
+    this._callresponse = /* @__PURE__ */ new Map();
     this._request = _request;
     this.initHeader(_request, _mstarget);
   }
@@ -113,6 +114,7 @@ var Call = class {
       const _ms_response = yield response.json();
       const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
       const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
+      this.setCallResponse(_ms_user_session);
       this.setSession(_ms_user_session);
       this.setData(_ms_user_data);
       this.setIsOK(response.ok);
@@ -124,6 +126,9 @@ var Call = class {
   }
   setSession(_session) {
     this._session = _session;
+  }
+  setCallResponse(_callresponse) {
+    this._callresponse = _callresponse;
   }
   setData(_data) {
     this._data = _data;
@@ -144,15 +149,6 @@ var Call = class {
   getOrigin() {
     var _a;
     return (_a = this._request.get("origin")) != null ? _a : "";
-  }
-  getIsOK() {
-    return this._isOK;
-  }
-  getSession() {
-    return this._session;
-  }
-  getData() {
-    return this._data;
   }
   getFetchOptions() {
     this.initFetchOptions();
