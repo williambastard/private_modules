@@ -149,11 +149,11 @@ var Call = class {
   }
   getToken() {
     var _a;
-    return (_a = this._request.get("token")) != null ? _a : "";
+    return (_a = this._request.get("Token")) != null ? _a : "";
   }
   getOrigin() {
     var _a;
-    return (_a = this._request.get("origin")) != null ? _a : "";
+    return (_a = this._request.get("Origin")) != null ? _a : "";
   }
   getFetchOptions() {
     this.initFetchOptions();
@@ -168,17 +168,17 @@ var Call = class {
     this.setFetchOption({ "body": this._request.body });
   }
   initHeader(_request, _target) {
-    this.setHeaderKey("origin", this.getOrigin());
-    this.setHeaderKey("token", this.getToken());
-    this.setHeaderKey("credentials", "include");
-    this.setHeaderKey("author", "William BASTARD");
-    this.setHeaderKey("content-type", "application/json");
-    this.setHeaderKey("accept", "application/json");
-    this.setHeaderKey("ms-user-method", _request.method);
-    this.setHeaderKey("ms-target-service", _target);
-    this.setHeaderKey("ms-target-protocol", "http");
-    this.setHeaderKey("ms-target-host", "service.riptest:8282");
-    this.setHeaderKey("ms-target-endpoint", _request.url.replace("/", ""));
+    this.setHeaderKey("Origin", this.getOrigin());
+    this.setHeaderKey("Token", this.getToken());
+    this.setHeaderKey("Credentials", "include");
+    this.setHeaderKey("Author", "William BASTARD");
+    this.setHeaderKey("Content-type", "application/json");
+    this.setHeaderKey("Accept", "application/json");
+    this.setHeaderKey("Ms-user-method", _request.method);
+    this.setHeaderKey("Ms-target-service", _target);
+    this.setHeaderKey("Ms-target-protocol", "http");
+    this.setHeaderKey("Ms-target-host", "service.riptest:8282");
+    this.setHeaderKey("Ms-target-endpoint", _request.url.replace("/", ""));
   }
 };
 
