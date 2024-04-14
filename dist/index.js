@@ -114,7 +114,7 @@ var Call = class {
       const _ms_response = yield response.json();
       const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
       const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
-      this.setCallResponse(_ms_user_session);
+      this.setCallResponse(_ms_response);
       this.setSession(_ms_user_session);
       this.setData(_ms_user_data);
       this.setIsOK(response.ok);

@@ -21,7 +21,7 @@ export default class Call implements ApiFetcherInterface {
         const _ms_response = await response.json();
         const _ms_user_data = _ms_response!.data ?? false;
         const _ms_user_session = _ms_user_data!.session ?? false;
-        this.setCallResponse(_ms_user_session);
+        this.setCallResponse(_ms_response);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
         this.setIsOK(response.ok);
