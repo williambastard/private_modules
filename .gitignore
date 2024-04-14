@@ -1,1 +1,8 @@
-node_modules/
+/node_modules 
+
+# Ignorer les fichiers liés aux tests
+ /coverage.data 
+/coverage/ 
+
+# Construire les fichiers
+ /dist
