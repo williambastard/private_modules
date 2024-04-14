@@ -58,11 +58,15 @@ ApiResponseMap.map = /* @__PURE__ */ new Map([
   ["HTTP_204", { statusCode: 204, message: "No Content", data: {} }],
   ["HTTp_205", { statusCode: 205, message: "Reset Content", data: {} }],
   ["HTTP_206", { statusCode: 206, message: "Partial Content", data: {} }],
-  ["HTTP_208", { statusCode: 208, message: "Already Reported", data: {} }]
+  ["HTTP_208", { statusCode: 208, message: "Already Reported", data: {} }],
+  ["ERROR", { statusCode: 500, message: '"{CODE}" Not found in default ApiDefaultResponse', data: {} }]
 ]);
 var ApiDefaultResponse = class {
   static get(key) {
-    return ApiResponseMap.map.get(key);
+    var _a;
+    const error = JSON.parse(JSON.stringify(ApiResponseMap.map.get("ERROR"))).message.replace("{CODE}", key);
+    const get = (_a = ApiResponseMap.map.get(key)) != null ? _a : error;
+    return get;
   }
 };
 

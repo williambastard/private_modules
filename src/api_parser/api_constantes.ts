@@ -24,6 +24,7 @@ export abstract class ApiResponseMap {
         ["HTTp_205", { statusCode: 205, message: "Reset Content", data: {} }],
         ["HTTP_206", { statusCode: 206, message: "Partial Content", data: {} }],
         ["HTTP_208", { statusCode: 208, message: "Already Reported", data: {} }],
+        ["ERROR", { statusCode: 500, message: "\"{CODE}\" Not found in default ApiDefaultResponse", data: {} }],
     ])
 }
 export default abstract class ApiDefaultResponse implements ApiInterface {
@@ -35,6 +36,8 @@ export default abstract class ApiDefaultResponse implements ApiInterface {
 
 
     static get(key: string): ApiInterface {
-        return ApiResponseMap.map.get(key) as ApiInterface;
+        const error = JSON.parse(JSON.stringify(ApiResponseMap.map.get("ERROR")!)).message.replace("{CODE}", key);
+        const get = ApiResponseMap.map.get(key) ?? error;
+        return get as ApiInterface;
     }
 }
