@@ -15,7 +15,7 @@ export default class Call implements ApiFetcherInterface {
 
     constructor(_request: Request, _mstarget: string) {
         this._request = _request;
-        this.initHeader(_request, _mstarget);
+        this.initHeader(_mstarget);
     }
     async fetch(): Promise<Call> {
         this.getFetchOptions();
@@ -101,7 +101,7 @@ export default class Call implements ApiFetcherInterface {
             });
         }
     }
-    initHeader(_request: Request, _target: string) {
+    initHeader(_mstarget: string) {
         this.setHeaderKey('origin', this.getOrigin());
         this.setHeaderKey('token', this.getToken());
         this.setHeaderKey('credentials', 'include');
@@ -109,10 +109,10 @@ export default class Call implements ApiFetcherInterface {
         this.setHeaderKey('content-type', 'application/json');
         this.setHeaderKey('accept', 'application/json');
 
-        this.setHeaderKey('ms-user-method', _request.method);
-        this.setHeaderKey('ms-target-service', _target);
+        this.setHeaderKey('ms-user-method', this._request.method);
+        this.setHeaderKey('ms-target-service', _mstarget);
         this.setHeaderKey('ms-target-protocol', 'http');
         this.setHeaderKey('ms-target-host', 'service.riptest:8282');
-        this.setHeaderKey('ms-target-endpoint', _request.url.replace('/', ''));
+        this.setHeaderKey('ms-target-endpoint', this._request.url.replace('/', ''));
     }
 }

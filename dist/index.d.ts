@@ -59,7 +59,7 @@ declare class Call implements ApiFetcherInterface {
     getFetchOptions(): RequestInit;
     getTarget(): string;
     initFetchOptions(): void;
-    initHeader(_request: Request, _target: string): void;
+    initHeader(_mstarget: string): void;
 }
 
 declare const _default: {
