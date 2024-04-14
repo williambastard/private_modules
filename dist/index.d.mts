@@ -45,21 +45,21 @@ declare class Call implements ApiFetcherInterface {
     _status: number;
     _isOK: boolean;
     _callresponse: any;
-    constructor(_request: Request, _mstarget: string, _msendpoint: string);
+    constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number);
     fetch(): Promise<Call>;
     setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;
     setSession(_session: any | false): void;
     setCallResponse(_callresponse: any): void;
     setData(_data: any | false): void;
-    setHeaderKey(headerKey: string, headerValue: string): void;
+    setHeaderKey(headerKey: string, headerValue: any): void;
     getHeaderKey(_headerKey: string): string | null;
     getToken(): string;
     getOrigin(): string;
     getFetchOptions(): RequestInit;
     getTarget(): string;
     initFetchOptions(): void;
-    initHeader(_mstarget: string, _msendpoint: string): void;
+    initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
 
 declare const _default: {

@@ -13,9 +13,9 @@ export default class Call implements ApiFetcherInterface {
     _isOK: boolean = false;
     _callresponse: any = new Map();
 
-    constructor(_request: Request, _mstarget: string, _msendpoint: string) {
+    constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number) {
         this._request = _request;
-        this.initHeader(_mstarget, _msendpoint);
+        this.initHeader(_mstarget, _msendpoint, _msport);
     }
     async fetch(): Promise<Call> {
         this.getFetchOptions();
@@ -50,7 +50,7 @@ export default class Call implements ApiFetcherInterface {
         this._data = _data;
     }
 
-    setHeaderKey(headerKey: string, headerValue: string) {
+    setHeaderKey(headerKey: string, headerValue: any) {
         headerKey = headerKey.toLowerCase();
         headerKey = headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -82,6 +82,7 @@ export default class Call implements ApiFetcherInterface {
         return this.getHeaderKey("ms-target-protocol") +
             "://" + this.getHeaderKey("ms-target-service") +
             "." + this.getHeaderKey("ms-target-host") +
+            ":" + this.getHeaderKey("ms-target-port") +
             "/" + this.getHeaderKey("ms-target-service") +
             "/" + this.getHeaderKey('ms-target-endpoint');
     }
@@ -101,7 +102,7 @@ export default class Call implements ApiFetcherInterface {
             });
         }
     }
-    initHeader(_mstarget: string, _msendpoint: string) {
+    initHeader(_mstarget: string, _msendpoint: string, _msport: number) {
         this.setHeaderKey('origin', this.getOrigin());
         this.setHeaderKey('token', this.getToken());
         this.setHeaderKey('credentials', 'include');
@@ -112,7 +113,8 @@ export default class Call implements ApiFetcherInterface {
         this.setHeaderKey('ms-user-method', this._request.method);
         this.setHeaderKey('ms-target-service', _mstarget);
         this.setHeaderKey('ms-target-protocol', 'http');
-        this.setHeaderKey('ms-target-host', 'service.riptest:8282');
+        this.setHeaderKey('ms-target-host', 'service.riptest');
+        this.setHeaderKey('ms-target-port', _msport);
         this.setHeaderKey('ms-target-endpoint', _msendpoint);
     }
 }

@@ -72,7 +72,7 @@ var ApiJSON = class {
 
 // src/api_fetcher/api_fetcher.ts
 var Call = class {
-  constructor(_request, _mstarget, _msendpoint) {
+  constructor(_request, _mstarget, _msendpoint, _msport) {
     this._headers = new Headers();
     this._options = {};
     this._data = false;
@@ -81,7 +81,7 @@ var Call = class {
     this._isOK = false;
     this._callresponse = /* @__PURE__ */ new Map();
     this._request = _request;
-    this.initHeader(_mstarget, _msendpoint);
+    this.initHeader(_mstarget, _msendpoint, _msport);
   }
   fetch() {
     return __async(this, null, function* () {
@@ -136,7 +136,7 @@ var Call = class {
     return this._options;
   }
   getTarget() {
-    return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
+    return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + ":" + this.getHeaderKey("ms-target-port") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
   }
   initFetchOptions() {
     if (["POST", "PATCH", "PUT", "DELETE"].includes(this._request.method)) {
@@ -152,7 +152,7 @@ var Call = class {
       });
     }
   }
-  initHeader(_mstarget, _msendpoint) {
+  initHeader(_mstarget, _msendpoint, _msport) {
     this.setHeaderKey("origin", this.getOrigin());
     this.setHeaderKey("token", this.getToken());
     this.setHeaderKey("credentials", "include");
@@ -162,7 +162,8 @@ var Call = class {
     this.setHeaderKey("ms-user-method", this._request.method);
     this.setHeaderKey("ms-target-service", _mstarget);
     this.setHeaderKey("ms-target-protocol", "http");
-    this.setHeaderKey("ms-target-host", "service.riptest:8282");
+    this.setHeaderKey("ms-target-host", "service.riptest");
+    this.setHeaderKey("ms-target-port", _msport);
     this.setHeaderKey("ms-target-endpoint", _msendpoint);
   }
 };
