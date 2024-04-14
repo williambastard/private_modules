@@ -55,13 +55,13 @@ export default class Call implements ApiFetcherInterface {
         headerKey = headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join('-');
-        this._headers.append(headerKey, headerValue);
+        this._headers.set(headerKey, headerValue);
     }
 
     getHeaderKey(_headerKey: string) {
-        const _returnHeader = this._headers.get(_headerKey)?.split('-')
+        const _returnHeader = this._headers.get(_headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join('-');
+            .join('-'));
         return _returnHeader;
     }
 

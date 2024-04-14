@@ -117,11 +117,10 @@ var Call = class {
   setHeaderKey(headerKey, headerValue) {
     headerKey = headerKey.toLowerCase();
     headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
-    this._headers.append(headerKey, headerValue);
+    this._headers.set(headerKey, headerValue);
   }
   getHeaderKey(_headerKey) {
-    var _a;
-    const _returnHeader = (_a = this._headers.get(_headerKey)) == null ? void 0 : _a.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+    const _returnHeader = this._headers.get(_headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-"));
     return _returnHeader;
   }
   getToken() {

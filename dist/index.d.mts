@@ -53,7 +53,7 @@ declare class Call implements ApiFetcherInterface {
     setCallResponse(_callresponse: any): void;
     setData(_data: any | false): void;
     setHeaderKey(headerKey: string, headerValue: string): void;
-    getHeaderKey(_headerKey: string): string | undefined;
+    getHeaderKey(_headerKey: string): string | null;
     getToken(): string;
     getOrigin(): string;
     getFetchOptions(): RequestInit;
