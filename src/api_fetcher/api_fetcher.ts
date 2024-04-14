@@ -87,12 +87,15 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-
         Object.assign(this._options, {
             "headers": this._headers,
-            "method": this._request.method,
-            "body": this._request.body
+            "method": this._request.method
         });
+        if (["POST", "PATCH", "PUT", "DELETE"].includes(this._request.method)) {
+            Object.assign(this._options, {
+                "body": JSON.stringify(this._request.body)
+            });
+        }
     }
     initHeader(_request: Request, _target: string) {
         this.setHeaderKey('origin', this.getOrigin());
@@ -100,7 +103,7 @@ export default class Call implements ApiFetcherInterface {
         this.setHeaderKey('credentials', 'include');
         this.setHeaderKey('author', 'William BASTARD');
         this.setHeaderKey('content-type', 'application/json');
-        //this.setHeaderKey('accept', 'application/json');
+        this.setHeaderKey('accept', 'application/json');
 
         this.setHeaderKey('ms-user-method', _request.method);
         this.setHeaderKey('ms-target-service', _target);

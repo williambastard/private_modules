@@ -141,9 +141,13 @@ var Call = class {
   initFetchOptions() {
     Object.assign(this._options, {
       "headers": this._headers,
-      "method": this._request.method,
-      "body": this._request.body
+      "method": this._request.method
     });
+    if (["POST", "PATCH", "PUT", "DELETE"].includes(this._request.method)) {
+      Object.assign(this._options, {
+        "body": JSON.stringify(this._request.body)
+      });
+    }
   }
   initHeader(_request, _target) {
     this.setHeaderKey("origin", this.getOrigin());
@@ -151,6 +155,7 @@ var Call = class {
     this.setHeaderKey("credentials", "include");
     this.setHeaderKey("author", "William BASTARD");
     this.setHeaderKey("content-type", "application/json");
+    this.setHeaderKey("accept", "application/json");
     this.setHeaderKey("ms-user-method", _request.method);
     this.setHeaderKey("ms-target-service", _target);
     this.setHeaderKey("ms-target-protocol", "http");
