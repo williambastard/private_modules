@@ -1,6 +1,7 @@
-import ApiParser from '../src';
+import Api from '../src';
+import ApiInterface from '../src/api_parser/api_interface';
 
 test('test constants import', () => {
-    const result = ApiParser.default._CREATED;
-    expect(result).toBe(ApiParser.default._CREATED);
+    const result = Api.ApiDefaultResponse.get("OK");
+    expect(result).toBe(Api.ApiDefaultResponse.get("OK"));
 });
