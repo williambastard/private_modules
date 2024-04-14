@@ -86,7 +86,7 @@ ApiResponseMap.map = /* @__PURE__ */ new Map([
   ["HTTP_208", { statusCode: 208, message: "Already Reported", data: {} }],
   ["ERROR", { statusCode: 500, message: '"{CODE}" Not found in default ApiDefaultResponse', data: {} }]
 ]);
-var ApiDefaultResponse = class {
+var ApiJSON = class {
   static get(key) {
     var _a;
     const error = JSON.parse(JSON.stringify(ApiResponseMap.map.get("ERROR"))).message.replace("{CODE}", key);
@@ -96,55 +96,91 @@ var ApiDefaultResponse = class {
 };
 
 // src/api_fetcher/api_fetcher.ts
-var ApiFetcher = class {
-  constructor(_request, _target) {
+var Call = class {
+  constructor(_request, _mstarget) {
     this._headers = new Headers();
     this._options = {};
+    this._data = false;
+    this._session = false;
+    this._isOK = false;
     this._request = _request;
-    this.initHeader(_request, _target);
+    this.initHeader(_request, _mstarget);
   }
   fetch() {
     return __async(this, null, function* () {
+      var _a, _b;
       const response = yield fetch(`${this.getTarget()}`, this.getFetchOptions());
       const _ms_response = yield response.json();
-      return _ms_response != null ? _ms_response : {};
+      const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
+      const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
+      this.setSession(_ms_user_session);
+      this.setData(_ms_user_data);
+      this.setIsOK(response.ok);
+      return _ms_response != null ? _ms_response : ApiJSON.get("ERROR");
     });
   }
-  initHeader(_request, _target) {
-    var _a, _b;
-    this.setHeaderKey("origin", (_a = _request.header("origin")) != null ? _a : "");
-    this.setHeaderKey("token", (_b = _request.get("token")) != null ? _b : "");
-    this.setHeaderKey("author", "William BASTARD");
-    this.setHeaderKey("content-type", "application/json");
-    this.setHeaderKey("ms-user-method", _request.method);
-    this.setHeaderKey("ms-target-service", _target);
-    this.setHeaderKey("ms-target-protocol", "http");
-    this.setHeaderKey("ms-target-host", "service.riptest:8282");
-    this.setHeaderKey("ms-target-endpoint", _request.url.replace("/", ""));
+  setIsOK(_isOK) {
+    this._isOK = _isOK;
+  }
+  setSession(_session) {
+    this._session = _session;
+  }
+  setData(_data) {
+    this._data = _data;
+  }
+  setFetchOption(_fetchOptionObject) {
+    Object.assign(this._options, _fetchOptionObject);
+  }
+  setHeaderKey(headerKey, headerValue) {
+    this._headers.set(headerKey, headerValue);
+  }
+  getHeaderKey(headerKey) {
+    return this._headers.get(headerKey);
+  }
+  getToken() {
+    var _a;
+    return (_a = this._request.get("token")) != null ? _a : "";
+  }
+  getOrigin() {
+    var _a;
+    return (_a = this._request.get("origin")) != null ? _a : "";
+  }
+  getIsOK() {
+    return this._isOK;
+  }
+  getSession() {
+    return this._session;
+  }
+  getData() {
+    return this._data;
+  }
+  getFetchOptions() {
+    this.initFetchOptions();
+    return this._options;
+  }
+  getTarget() {
+    return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
   }
   initFetchOptions() {
     this.setFetchOption(this._headers);
     this.setFetchOption({ "method": this._request.method });
     this.setFetchOption({ "body": this._request.body });
   }
-  setHeaderKey(headerKey, headerValue) {
-    this._headers.set(headerKey, headerValue);
-  }
-  setFetchOption(_fetchOptionObject) {
-    Object.assign(this._options, _fetchOptionObject);
-  }
-  getHeaderKey(headerKey) {
-    return this._headers.get(headerKey);
-  }
-  getTarget() {
-    return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
-  }
-  getFetchOptions() {
-    this.initFetchOptions();
-    return this._options;
+  initHeader(_request, _target) {
+    this.setHeaderKey("origin", this.getOrigin());
+    this.setHeaderKey("token", this.getToken());
+    this.setHeaderKey("credentials", "include");
+    this.setHeaderKey("author", "William BASTARD");
+    this.setHeaderKey("content-type", "application/json");
+    this.setHeaderKey("accept", "application/json");
+    this.setHeaderKey("ms-user-method", _request.method);
+    this.setHeaderKey("ms-target-service", _target);
+    this.setHeaderKey("ms-target-protocol", "http");
+    this.setHeaderKey("ms-target-host", "service.riptest:8282");
+    this.setHeaderKey("ms-target-endpoint", _request.url.replace("/", ""));
   }
 };
 
 // src/index.ts
-var src_default = { ApiConstructor, ApiFetcher, ApiDefaultResponse };
+var src_default = { ApiConstructor, Call, ApiJSON };
 //# sourceMappingURL=index.js.map

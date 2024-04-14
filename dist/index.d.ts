@@ -16,7 +16,7 @@ declare class ApiConstructor {
     sendResponse(): Response<any, Record<string, any>>;
 }
 
-declare abstract class ApiDefaultResponse implements ApiInterface {
+declare abstract class ApiJSON implements ApiInterface {
     statusCode: number;
     message: string;
     token?: string | undefined;
@@ -29,27 +29,41 @@ interface ApiFetcherInterface {
     _request: Request;
     _headers: Headers;
     _options: Object;
+    _data: Map<any, any> | false;
+    _session: Map<any, any> | false;
+    _isOK: boolean;
 }
 
-declare class ApiFetcher implements ApiFetcherInterface {
+declare class Call implements ApiFetcherInterface {
     _request: Request;
     _headers: Headers;
     _options: Object;
-    constructor(_request: Request, _target: string);
-    fetch(): Promise<Object>;
-    initHeader(_request: Request, _target: string): void;
-    initFetchOptions(): void;
-    setHeaderKey(headerKey: string, headerValue: string): void;
+    _data: Map<any, any> | false;
+    _session: Map<any, any> | false;
+    _isOK: boolean;
+    constructor(_request: Request, _mstarget: string);
+    fetch(): Promise<ApiInterface>;
+    setIsOK(_isOK: boolean): void;
+    setSession(_session: Map<any, any> | false): void;
+    setData(_data: Map<any, any> | false): void;
     setFetchOption(_fetchOptionObject: Object): void;
+    setHeaderKey(headerKey: string, headerValue: string): void;
     getHeaderKey(headerKey: string): string | null;
-    getTarget(): string;
+    getToken(): string;
+    getOrigin(): string;
+    getIsOK(): boolean;
+    getSession(): Map<any, any> | false;
+    getData(): Map<any, any> | false;
     getFetchOptions(): RequestInit;
+    getTarget(): string;
+    initFetchOptions(): void;
+    initHeader(_request: Request, _target: string): void;
 }
 
 declare const _default: {
     ApiConstructor: typeof ApiConstructor;
-    ApiFetcher: typeof ApiFetcher;
-    ApiDefaultResponse: typeof ApiDefaultResponse;
+    Call: typeof Call;
+    ApiJSON: typeof ApiJSON;
 };
 
 export { _default as default };
