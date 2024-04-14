@@ -143,10 +143,12 @@ var Call = class {
   }
   setHeaderKey(headerKey, headerValue) {
     headerKey = headerKey.toLowerCase();
-    this._headers.set(headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-"), headerValue);
+    headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+    this._headers.set(headerKey, headerValue);
   }
   getHeaderKey(headerKey) {
-    return this._headers.get(headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-"));
+    headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+    return this._headers.get(headerKey);
   }
   getToken() {
     var _a;
@@ -164,7 +166,7 @@ var Call = class {
     return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
   }
   initFetchOptions() {
-    this.setFetchOption(this._headers);
+    this.setFetchOption(JSON.parse(JSON.stringify(this._headers)));
     this.setFetchOption({ "method": this._request.method });
     this.setFetchOption({ "body": this._request.body });
   }

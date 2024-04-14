@@ -55,15 +55,17 @@ export default class Call implements ApiFetcherInterface {
 
     setHeaderKey(headerKey: string, headerValue: string) {
         headerKey = headerKey.toLowerCase();
-        this._headers.set(headerKey.split('-')
+        headerKey = headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join('-'), headerValue);
+            .join('-');
+        this._headers.set(headerKey, headerValue);
     }
 
     getHeaderKey(headerKey: string) {
-        return this._headers.get(headerKey.split('-')
+        headerKey = headerKey.split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join('-'));
+            .join('-');
+        return this._headers.get(headerKey);
     }
 
     getToken(): string {
@@ -88,7 +90,7 @@ export default class Call implements ApiFetcherInterface {
     }
 
     initFetchOptions() {
-        this.setFetchOption(this._headers);
+        this.setFetchOption(JSON.parse(JSON.stringify(this._headers)));
         this.setFetchOption({ "method": this._request.method });
         this.setFetchOption({ "body": this._request.body });
     }
