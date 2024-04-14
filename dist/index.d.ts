@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, Response } from 'express';
+import { ErrorRequestHandler, Response, Request } from 'express';
 
 interface ApiInterface {
     statusCode: number;
@@ -26,23 +26,24 @@ declare abstract class ApiDefaultResponse implements ApiInterface {
 }
 
 interface ApiFetcherInterface {
-    headers: Headers;
-    method: string;
-    body?: any;
+    _request: Request;
+    _headers: Headers;
+    _options: Object;
 }
 
 declare class ApiFetcher implements ApiFetcherInterface {
-    headers: Headers;
-    method: string;
-    body?: any;
-    constructor(method: string);
-    fetch(_apiFetcherOptions: ApiFetcherInterface): Promise<Object>;
-    getHeader(headerKey: string): string | null;
-    setHeader(headerKey: string, headerValue: string): void;
-    setHeaderObject(headerObjectOptions: Object): void;
-    setMethod(method: string): void;
-    setBody(body: object): void;
+    _request: Request;
+    _headers: Headers;
+    _options: Object;
+    constructor(_request: Request, _target: string);
+    fetch(): Promise<Object>;
+    initHeader(_request: Request, _target: string): void;
+    initFetchOptions(): void;
+    setHeaderKey(headerKey: string, headerValue: string): void;
+    setFetchOption(_fetchOptionObject: Object): void;
+    getHeaderKey(headerKey: string): string | null;
     getTarget(): string;
+    getFetchOptions(): RequestInit;
 }
 
 declare const _default: {

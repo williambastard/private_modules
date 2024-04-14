@@ -97,37 +97,51 @@ var ApiDefaultResponse = class {
 
 // src/api_fetcher/api_fetcher.ts
 var ApiFetcher = class {
-  constructor(method) {
-    this.headers = new Headers({
-      "author": "William BASTARD",
-      "content-type": "application/json"
-    });
-    this.method = method;
+  constructor(_request, _target) {
+    this._headers = new Headers();
+    this._options = {};
+    this._request = _request;
+    this.initHeader(_request, _target);
   }
-  fetch(_apiFetcherOptions) {
+  fetch() {
     return __async(this, null, function* () {
-      const response = yield fetch(`${this.getTarget()}`, _apiFetcherOptions);
+      const response = yield fetch(`${this.getTarget()}`, this.getFetchOptions());
       const _ms_response = yield response.json();
       return _ms_response != null ? _ms_response : {};
     });
   }
-  getHeader(headerKey) {
-    return this.headers.get(headerKey);
+  initHeader(_request, _target) {
+    var _a, _b;
+    this.setHeaderKey("origin", (_a = _request.header("origin")) != null ? _a : "");
+    this.setHeaderKey("token", (_b = _request.get("token")) != null ? _b : "");
+    this.setHeaderKey("author", "William BASTARD");
+    this.setHeaderKey("content-type", "application/json");
+    this.setHeaderKey("ms-user-method", _request.method);
+    this.setHeaderKey("ms-target-service", _target);
+    this.setHeaderKey("ms-target-protocol", "http");
+    this.setHeaderKey("ms-target-host", "service.riptest:8282");
+    this.setHeaderKey("ms-target-endpoint", _request.url.replace("/", ""));
   }
-  setHeader(headerKey, headerValue) {
-    this.headers.set(headerKey, headerValue);
+  initFetchOptions() {
+    this.setFetchOption(this._headers);
+    this.setFetchOption({ "method": this._request.method });
+    this.setFetchOption({ "body": this._request.body });
   }
-  setHeaderObject(headerObjectOptions) {
-    Object.assign(this.headers, headerObjectOptions);
+  setHeaderKey(headerKey, headerValue) {
+    this._headers.set(headerKey, headerValue);
   }
-  setMethod(method) {
-    this.method = method;
+  setFetchOption(_fetchOptionObject) {
+    Object.assign(this._options, _fetchOptionObject);
   }
-  setBody(body) {
-    this.body = JSON.stringify(body);
+  getHeaderKey(headerKey) {
+    return this._headers.get(headerKey);
   }
   getTarget() {
-    return this.getHeader("ms-target-protocol") + "://" + this.getHeader("ms-target-host") + "/" + this.getHeader("ms-target-service") + "/" + this.getHeader("ms-target-endpoint");
+    return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
+  }
+  getFetchOptions() {
+    this.initFetchOptions();
+    return this._options;
   }
 };
 
