@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
-import ApiDefaultResponse from "../api_parser/api_constantes";
+import ApiJSON from "../api_parser/api_constantes";
 import ApiInterface from "../api_parser/api_interface";
 
 export default class Call implements ApiFetcherInterface {
@@ -19,15 +19,28 @@ export default class Call implements ApiFetcherInterface {
     }
     async fetch(): Promise<Call> {
         this.getFetchOptions();
-        const response = await fetch(`${this.getTarget()}`, this._options)
-        const _ms_response = await response.json();
-        const _ms_user_data = _ms_response!.data ?? false;
-        const _ms_user_session = _ms_user_data!.session ?? false;
-        this.setIsOK(response.ok);
-        this.setStatus(response.status);
-        this.setCallResponse(_ms_response);
-        this.setSession(_ms_user_session);
-        this.setData(_ms_user_data);
+        try {
+            const response = await fetch(`${this.getTarget()}`, this._options)
+            const _ms_response = await response.json();
+            const _ms_user_data = _ms_response!.data ?? false;
+            const _ms_user_session = _ms_user_data!.session ?? false;
+
+            this.setIsOK(response.ok);
+            this.setStatus(response.status);
+            this.setCallResponse(_ms_response);
+            this.setSession(_ms_user_session);
+            this.setData(_ms_user_data);
+        }
+        catch (UncaughtException) {
+            let error = ApiJSON.get("HTTP_500");
+            error.message = UncaughtException?.toString() ?? ApiJSON.get("HTTP_500").message;
+
+            this.setIsOK(false);
+            this.setStatus(500);
+            this.setCallResponse(error);
+            this.setSession(false);
+            this.setData(false);
+        }
         return this;
     }
 

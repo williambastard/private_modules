@@ -85,17 +85,27 @@ var Call = class {
   }
   fetch() {
     return __async(this, null, function* () {
-      var _a, _b;
+      var _a, _b, _c;
       this.getFetchOptions();
-      const response = yield fetch(`${this.getTarget()}`, this._options);
-      const _ms_response = yield response.json();
-      const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
-      const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
-      this.setIsOK(response.ok);
-      this.setStatus(response.status);
-      this.setCallResponse(_ms_response);
-      this.setSession(_ms_user_session);
-      this.setData(_ms_user_data);
+      try {
+        const response = yield fetch(`${this.getTarget()}`, this._options);
+        const _ms_response = yield response.json();
+        const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
+        const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
+        this.setIsOK(response.ok);
+        this.setStatus(response.status);
+        this.setCallResponse(_ms_response);
+        this.setSession(_ms_user_session);
+        this.setData(_ms_user_data);
+      } catch (UncaughtException) {
+        let error = ApiJSON.get("HTTP_500");
+        error.message = (_c = UncaughtException == null ? void 0 : UncaughtException.toString()) != null ? _c : ApiJSON.get("HTTP_500").message;
+        this.setIsOK(false);
+        this.setStatus(500);
+        this.setCallResponse(error);
+        this.setSession(false);
+        this.setData(false);
+      }
       return this;
     });
   }
