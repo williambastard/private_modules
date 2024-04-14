@@ -5,6 +5,7 @@ export interface ApiFetcherInterface {
     _options: Object;
     _data: Map<any, any> | false;
     _session: Map<any, any> | false;
+    _status: number;
     _isOK: boolean;
     _callresponse: Map<any, any>;
 }

@@ -31,6 +31,7 @@ interface ApiFetcherInterface {
     _options: Object;
     _data: Map<any, any> | false;
     _session: Map<any, any> | false;
+    _status: number;
     _isOK: boolean;
     _callresponse: Map<any, any>;
 }
@@ -41,10 +42,12 @@ declare class Call implements ApiFetcherInterface {
     _options: Object;
     _data: any | false;
     _session: any | false;
+    _status: number;
     _isOK: boolean;
     _callresponse: any;
     constructor(_request: Request, _mstarget: string);
     fetch(): Promise<Call>;
+    setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;
     setSession(_session: any | false): void;
     setCallResponse(_callresponse: any): void;

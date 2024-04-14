@@ -9,6 +9,7 @@ export default class Call implements ApiFetcherInterface {
     _options: Object = {};
     _data: any | false = false;
     _session: any | false = false;
+    _status: number = 500;
     _isOK: boolean = false;
     _callresponse: any = new Map();
 
@@ -21,13 +22,17 @@ export default class Call implements ApiFetcherInterface {
         const _ms_response = await response.json();
         const _ms_user_data = _ms_response!.data ?? false;
         const _ms_user_session = _ms_user_data!.session ?? false;
+        this.setIsOK(response.ok);
+        this.setStatus(response.status);
         this.setCallResponse(_ms_response);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
-        this.setIsOK(response.ok);
         return this;
     }
 
+    setStatus(_status: number) {
+        this._status = _status
+    }
     setIsOK(_isOK: boolean) {
         this._isOK = _isOK
     }

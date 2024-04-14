@@ -77,6 +77,7 @@ var Call = class {
     this._options = {};
     this._data = false;
     this._session = false;
+    this._status = 500;
     this._isOK = false;
     this._callresponse = /* @__PURE__ */ new Map();
     this._request = _request;
@@ -89,12 +90,16 @@ var Call = class {
       const _ms_response = yield response.json();
       const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
       const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
+      this.setIsOK(response.ok);
+      this.setStatus(response.status);
       this.setCallResponse(_ms_response);
       this.setSession(_ms_user_session);
       this.setData(_ms_user_data);
-      this.setIsOK(response.ok);
       return this;
     });
+  }
+  setStatus(_status) {
+    this._status = _status;
   }
   setIsOK(_isOK) {
     this._isOK = _isOK;
