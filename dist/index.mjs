@@ -135,7 +135,7 @@ var Call = class {
   }
   getToken() {
     var _a;
-    return (_a = this._request.get("Token")) != null ? _a : "";
+    return (_a = this._request.get("Authorization")) != null ? _a : "";
   }
   getOrigin() {
     var _a;
@@ -164,7 +164,7 @@ var Call = class {
   }
   initHeader(_mstarget, _msendpoint, _msport) {
     this.setHeaderKey("origin", this.getOrigin());
-    this.setHeaderKey("token", this.getToken());
+    this.setHeaderKey("authorization", "token " + this.getToken());
     this.setHeaderKey("credentials", "include");
     this.setHeaderKey("author", "William BASTARD");
     this.setHeaderKey("content-type", "application/json");
