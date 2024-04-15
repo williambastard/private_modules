@@ -117,7 +117,7 @@ export default class Call implements ApiFetcherInterface {
     }
     initHeader(_mstarget: string, _msendpoint: string, _msport: number) {
         this.setHeaderKey('origin', this.getOrigin());
-        this.setHeaderKey('authorization', "token " + this.getToken());
+        this.setHeaderKey('authorization', this.getToken());
         this.setHeaderKey('credentials', 'include');
         this.setHeaderKey('author', 'William BASTARD');
         this.setHeaderKey('content-type', 'application/json');

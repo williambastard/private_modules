@@ -189,7 +189,7 @@ var Call = class {
   }
   initHeader(_mstarget, _msendpoint, _msport) {
     this.setHeaderKey("origin", this.getOrigin());
-    this.setHeaderKey("authorization", "token " + this.getToken());
+    this.setHeaderKey("authorization", this.getToken());
     this.setHeaderKey("credentials", "include");
     this.setHeaderKey("author", "William BASTARD");
     this.setHeaderKey("content-type", "application/json");
