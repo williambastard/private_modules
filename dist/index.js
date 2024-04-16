@@ -116,13 +116,13 @@ var Call = class {
       try {
         const responsePromise = yield fetch(`${this.getTarget()}`, this._options);
         const _ms_response = yield responsePromise;
-        const _ms_headers = responsePromise.headers;
         const _ms_response_json = yield responsePromise.json();
+        const _ms_headers = yield responsePromise.headers;
         const _ms_user_data = (_a = _ms_response_json.data) != null ? _a : false;
         const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
         this.setIsOK(_ms_response.ok);
         this.setStatus(_ms_response.status);
-        this.setCallResponse(_ms_response);
+        this.setCallResponse(_ms_response_json);
         this.setCallHeaders(_ms_headers);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);

@@ -23,15 +23,14 @@ export default class Call implements ApiFetcherInterface {
         try {
             const responsePromise = await fetch(`${this.getTarget()}`, this._options)
             const _ms_response = await responsePromise;
-            const _ms_headers = responsePromise.headers;
-
             const _ms_response_json = await responsePromise.json();
+            const _ms_headers = await responsePromise.headers;
             const _ms_user_data = _ms_response_json!.data ?? false;
             const _ms_user_session = _ms_user_data!.session ?? false;
 
             this.setIsOK(_ms_response.ok);
             this.setStatus(_ms_response.status);
-            this.setCallResponse(_ms_response);
+            this.setCallResponse(_ms_response_json);
             this.setCallHeaders(_ms_headers);
             this.setSession(_ms_user_session);
             this.setData(_ms_user_data);
