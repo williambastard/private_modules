@@ -11,7 +11,8 @@ export default class Call implements ApiFetcherInterface {
     _session: any | false = false;
     _status: number = 500;
     _isOK: boolean = false;
-    _callresponse: any = new Map();
+    _callResponse: any = new Map();
+    _callHeaders: any;
 
     constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number) {
         this._request = _request;
@@ -20,14 +21,18 @@ export default class Call implements ApiFetcherInterface {
     async fetch(): Promise<Call> {
         this.getFetchOptions();
         try {
-            const response = await fetch(`${this.getTarget()}`, this._options)
-            const _ms_response = await response.json();
-            const _ms_user_data = _ms_response!.data ?? false;
+            const responsePromise = await fetch(`${this.getTarget()}`, this._options)
+            const _ms_response = await responsePromise;
+            const _ms_headers = responsePromise.headers;
+
+            const _ms_response_json = await responsePromise.json();
+            const _ms_user_data = _ms_response_json!.data ?? false;
             const _ms_user_session = _ms_user_data!.session ?? false;
 
-            this.setIsOK(response.ok);
-            this.setStatus(response.status);
+            this.setIsOK(_ms_response.ok);
+            this.setStatus(_ms_response.status);
             this.setCallResponse(_ms_response);
+            this.setCallHeaders(_ms_headers);
             this.setSession(_ms_user_session);
             this.setData(_ms_user_data);
         }
@@ -55,8 +60,12 @@ export default class Call implements ApiFetcherInterface {
         this._session = _session;
     }
 
-    setCallResponse(_callresponse: any) {
-        this._callresponse = _callresponse;
+    setCallHeaders(_callHeaders: any) {
+        this._callHeaders = _callHeaders;
+    }
+
+    setCallResponse(_callResponse: any) {
+        this._callResponse = _callResponse;
     }
 
     setData(_data: any | false) {

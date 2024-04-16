@@ -30,6 +30,7 @@ var ApiConstructor = class {
     return this;
   }
   sendResponse() {
+    this._response.set("X-Powered-By", "Les Ripeurs server");
     return this._response.status(this._responseAPI.statusCode).json(this._responseAPI);
   }
 };
@@ -79,7 +80,7 @@ var Call = class {
     this._session = false;
     this._status = 500;
     this._isOK = false;
-    this._callresponse = /* @__PURE__ */ new Map();
+    this._callResponse = /* @__PURE__ */ new Map();
     this._request = _request;
     this.initHeader(_mstarget, _msendpoint, _msport);
   }
@@ -88,13 +89,16 @@ var Call = class {
       var _a, _b;
       this.getFetchOptions();
       try {
-        const response = yield fetch(`${this.getTarget()}`, this._options);
-        const _ms_response = yield response.json();
-        const _ms_user_data = (_a = _ms_response.data) != null ? _a : false;
+        const responsePromise = yield fetch(`${this.getTarget()}`, this._options);
+        const _ms_response = yield responsePromise;
+        const _ms_headers = responsePromise.headers;
+        const _ms_response_json = yield responsePromise.json();
+        const _ms_user_data = (_a = _ms_response_json.data) != null ? _a : false;
         const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
-        this.setIsOK(response.ok);
-        this.setStatus(response.status);
+        this.setIsOK(_ms_response.ok);
+        this.setStatus(_ms_response.status);
         this.setCallResponse(_ms_response);
+        this.setCallHeaders(_ms_headers);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
       } catch (UncaughtException) {
@@ -118,8 +122,11 @@ var Call = class {
   setSession(_session) {
     this._session = _session;
   }
-  setCallResponse(_callresponse) {
-    this._callresponse = _callresponse;
+  setCallHeaders(_callHeaders) {
+    this._callHeaders = _callHeaders;
+  }
+  setCallResponse(_callResponse) {
+    this._callResponse = _callResponse;
   }
   setData(_data) {
     this._data = _data;

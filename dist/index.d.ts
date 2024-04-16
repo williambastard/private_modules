@@ -33,7 +33,8 @@ interface ApiFetcherInterface {
     _session: Map<any, any> | false;
     _status: number;
     _isOK: boolean;
-    _callresponse: Map<any, any>;
+    _callResponse: Map<any, any>;
+    _callHeaders: any;
 }
 
 declare class Call implements ApiFetcherInterface {
@@ -44,13 +45,15 @@ declare class Call implements ApiFetcherInterface {
     _session: any | false;
     _status: number;
     _isOK: boolean;
-    _callresponse: any;
+    _callResponse: any;
+    _callHeaders: any;
     constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number);
     fetch(): Promise<Call>;
     setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;
     setSession(_session: any | false): void;
-    setCallResponse(_callresponse: any): void;
+    setCallHeaders(_callHeaders: any): void;
+    setCallResponse(_callResponse: any): void;
     setData(_data: any | false): void;
     setHeaderKey(headerKey: string, headerValue: any): void;
     getHeaderKey(_headerKey: string): string | null;

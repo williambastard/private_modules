@@ -7,5 +7,6 @@ export interface ApiFetcherInterface {
     _session: Map<any, any> | false;
     _status: number;
     _isOK: boolean;
-    _callresponse: Map<any, any>;
+    _callResponse: Map<any, any>;
+    _callHeaders: any;
 }
