@@ -14,6 +14,7 @@ export class ApiConstructor {
         return this;
     }
     sendResponse() {
+        this._response.set("X-Powered-By", "Les Ripeurs server")
         return this._response.status(this._responseAPI!.statusCode).json(this._responseAPI);
     }
 }
