@@ -39,6 +39,7 @@ interface ApiFetcherInterface {
 
 declare class Call implements ApiFetcherInterface {
     _request: Request;
+    _response: Response;
     _headers: Headers;
     _options: Object;
     _data: any | false;
@@ -47,7 +48,7 @@ declare class Call implements ApiFetcherInterface {
     _isOK: boolean;
     _callResponse: any;
     _callHeaders: any;
-    constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number);
+    constructor(_request: Request, _response: Response, _mstarget: string, _msendpoint: string, _msport: number);
     fetch(): Promise<Call>;
     setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;

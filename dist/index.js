@@ -98,7 +98,7 @@ var ApiJSON = class {
 
 // src/api_fetcher/api_fetcher.ts
 var Call = class {
-  constructor(_request, _mstarget, _msendpoint, _msport) {
+  constructor(_request, _response, _mstarget, _msendpoint, _msport) {
     this._headers = new Headers();
     this._options = {};
     this._data = false;
@@ -107,6 +107,7 @@ var Call = class {
     this._isOK = false;
     this._callResponse = /* @__PURE__ */ new Map();
     this._request = _request;
+    this._response = _response;
     this.initHeader(_mstarget, _msendpoint, _msport);
   }
   fetch() {
@@ -148,6 +149,14 @@ var Call = class {
     this._session = _session;
   }
   setCallHeaders(_callHeaders) {
+    const fetchHeaders = {};
+    for (const [key, value] of _callHeaders.entries()) {
+      fetchHeaders[key] = value;
+    }
+    for (const [key, value] of Object.entries(fetchHeaders)) {
+      const formatedKeyName = key.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+      this._response.set(formatedKeyName, value);
+    }
     this._callHeaders = _callHeaders;
   }
   setCallResponse(_callResponse) {

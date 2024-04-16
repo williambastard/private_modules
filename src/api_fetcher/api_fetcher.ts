@@ -1,10 +1,10 @@
-import { Request } from "express";
+import { Response, Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
 import ApiJSON from "../api_parser/api_constantes";
-import ApiInterface from "../api_parser/api_interface";
 
 export default class Call implements ApiFetcherInterface {
     _request: Request;
+    _response: Response;
     _headers: Headers = new Headers();
     _options: Object = {};
     _data: any | false = false;
@@ -14,8 +14,9 @@ export default class Call implements ApiFetcherInterface {
     _callResponse: any = new Map();
     _callHeaders: any;
 
-    constructor(_request: Request, _mstarget: string, _msendpoint: string, _msport: number) {
+    constructor(_request: Request, _response: Response, _mstarget: string, _msendpoint: string, _msport: number) {
         this._request = _request;
+        this._response = _response;
         this.initHeader(_mstarget, _msendpoint, _msport);
     }
     async fetch(): Promise<Call> {
@@ -60,6 +61,18 @@ export default class Call implements ApiFetcherInterface {
     }
 
     setCallHeaders(_callHeaders: any) {
+        // Convertir les en-têtes en un objet clé-valeur
+        const fetchHeaders: Record<string, string> = {};
+        for (const [key, value] of _callHeaders.entries()) {
+            fetchHeaders[key] = value;
+        }
+        // Définir les en-têtes dans la réponse Express
+        for (const [key, value] of Object.entries(fetchHeaders)) {
+            const formatedKeyName = key.split('-')
+                .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join('-')
+            this._response.set(formatedKeyName, value as string);
+        }
         this._callHeaders = _callHeaders;
     }
 
