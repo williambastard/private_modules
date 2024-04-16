@@ -63,15 +63,12 @@ export default class Call implements ApiFetcherInterface {
     setCallHeaders(_callHeaders: any) {
         // Convertir les en-têtes en un objet clé-valeur
         const fetchHeaders: Record<string, string> = {};
-        for (const [key, value] of _callHeaders.entries()) {
-            fetchHeaders[key] = value;
+        for (const [_headerKey, _headerValue] of _callHeaders.entries()) {
+            fetchHeaders[_headerKey] = _headerValue;
         }
         // Définir les en-têtes dans la réponse Express
-        for (const [key, value] of Object.entries(fetchHeaders)) {
-            const formatedKeyName = key.split('-')
-                .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                .join('-')
-            this._response.set(formatedKeyName, value as string);
+        for (const [_headerKey, _headerValue] of Object.entries(fetchHeaders)) {
+            this._response.set(this.formatKeyName(_headerKey), _headerValue as string);
         }
         this._callHeaders = _callHeaders;
     }
@@ -84,18 +81,12 @@ export default class Call implements ApiFetcherInterface {
         this._data = _data;
     }
 
-    setHeaderKey(headerKey: string, headerValue: any) {
-        headerKey = headerKey.toLowerCase();
-        headerKey = headerKey.split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join('-');
-        this._headers.set(headerKey, headerValue);
+    setHeaderKey(_headerKey: string, _headerValue: any) {
+        this._headers.set(this.formatKeyName(_headerKey), _headerValue);
     }
 
     getHeaderKey(_headerKey: string) {
-        const _returnHeader = this._headers.get(_headerKey.split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join('-'));
+        const _returnHeader = this._headers.get(this.formatKeyName(_headerKey));
         return _returnHeader;
     }
 
@@ -119,6 +110,14 @@ export default class Call implements ApiFetcherInterface {
             ":" + this.getHeaderKey("ms-target-port") +
             "/" + this.getHeaderKey("ms-target-service") +
             "/" + this.getHeaderKey('ms-target-endpoint');
+    }
+
+    formatKeyName(_headerKey: string) {
+        _headerKey = _headerKey.toLowerCase();
+        _headerKey = _headerKey.split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join('-');
+        return _headerKey;
     }
 
     initFetchOptions() {

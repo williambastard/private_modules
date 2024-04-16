@@ -1,6 +1,7 @@
-import { Request } from "express";
+import { Response, Request } from "express";
 export interface ApiFetcherInterface {
     _request: Request;
+    _response: Response;
     _headers: Headers;
     _options: Object;
     _data: Map<any, any> | false;

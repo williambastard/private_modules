@@ -125,12 +125,11 @@ var Call = class {
   }
   setCallHeaders(_callHeaders) {
     const fetchHeaders = {};
-    for (const [key, value] of _callHeaders.entries()) {
-      fetchHeaders[key] = value;
+    for (const [_headerKey, _headerValue] of _callHeaders.entries()) {
+      fetchHeaders[_headerKey] = _headerValue;
     }
-    for (const [key, value] of Object.entries(fetchHeaders)) {
-      const formatedKeyName = key.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
-      this._response.set(formatedKeyName, value);
+    for (const [_headerKey, _headerValue] of Object.entries(fetchHeaders)) {
+      this._response.set(this.formatKeyName(_headerKey), _headerValue);
     }
     this._callHeaders = _callHeaders;
   }
@@ -140,13 +139,11 @@ var Call = class {
   setData(_data) {
     this._data = _data;
   }
-  setHeaderKey(headerKey, headerValue) {
-    headerKey = headerKey.toLowerCase();
-    headerKey = headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
-    this._headers.set(headerKey, headerValue);
+  setHeaderKey(_headerKey, _headerValue) {
+    this._headers.set(this.formatKeyName(_headerKey), _headerValue);
   }
   getHeaderKey(_headerKey) {
-    const _returnHeader = this._headers.get(_headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-"));
+    const _returnHeader = this._headers.get(this.formatKeyName(_headerKey));
     return _returnHeader;
   }
   getToken() {
@@ -163,6 +160,11 @@ var Call = class {
   }
   getTarget() {
     return this.getHeaderKey("ms-target-protocol") + "://" + this.getHeaderKey("ms-target-service") + "." + this.getHeaderKey("ms-target-host") + ":" + this.getHeaderKey("ms-target-port") + "/" + this.getHeaderKey("ms-target-service") + "/" + this.getHeaderKey("ms-target-endpoint");
+  }
+  formatKeyName(_headerKey) {
+    _headerKey = _headerKey.toLowerCase();
+    _headerKey = _headerKey.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("-");
+    return _headerKey;
   }
   initFetchOptions() {
     if (["POST", "PATCH", "PUT", "DELETE"].includes(this._request.method)) {

@@ -27,6 +27,7 @@ declare abstract class ApiJSON implements ApiInterface {
 
 interface ApiFetcherInterface {
     _request: Request;
+    _response: Response;
     _headers: Headers;
     _options: Object;
     _data: Map<any, any> | false;
@@ -56,12 +57,13 @@ declare class Call implements ApiFetcherInterface {
     setCallHeaders(_callHeaders: any): void;
     setCallResponse(_callResponse: any): void;
     setData(_data: any | false): void;
-    setHeaderKey(headerKey: string, headerValue: any): void;
+    setHeaderKey(_headerKey: string, _headerValue: any): void;
     getHeaderKey(_headerKey: string): string | null;
     getToken(): string;
     getOrigin(): string;
     getFetchOptions(): RequestInit;
     getTarget(): string;
+    formatKeyName(_headerKey: string): string;
     initFetchOptions(): void;
     initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
