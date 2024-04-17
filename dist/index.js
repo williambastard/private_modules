@@ -198,7 +198,7 @@ var call = class {
       Object.assign(this._options, {
         "headers": this._headers,
         "method": this._request.method,
-        "body": this._request.body
+        "body": JSON.stringify(this._request.body)
       });
     } else {
       Object.assign(this._options, {
