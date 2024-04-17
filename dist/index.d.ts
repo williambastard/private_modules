@@ -9,11 +9,11 @@ interface ResponseInterface {
 }
 
 declare class parser {
-    _response: Response;
+    _response: Response | any;
     _responseAPI?: ResponseInterface;
-    constructor(_response: Response);
+    constructor(_response: Response | any);
     setResponse(_responseAPI: ResponseInterface): this;
-    sendResponse(): Response<any, Record<string, any>>;
+    sendResponse(): any;
 }
 
 declare abstract class messages implements ResponseInterface {
