@@ -40,7 +40,9 @@ var __async = (__this, __arguments, generator) => {
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  default: () => src_default
+  ApiConstructor: () => ApiConstructor,
+  ApiJSON: () => ApiJSON,
+  Call: () => Call
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -220,7 +222,10 @@ var Call = class {
     this.setHeaderKey("ms-target-endpoint", _msendpoint);
   }
 };
-
-// src/index.ts
-var src_default = { ApiConstructor, Call, ApiJSON };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ApiConstructor,
+  ApiJSON,
+  Call
+});
 //# sourceMappingURL=index.js.map

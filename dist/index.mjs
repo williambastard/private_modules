@@ -195,10 +195,9 @@ var Call = class {
     this.setHeaderKey("ms-target-endpoint", _msendpoint);
   }
 };
-
-// src/index.ts
-var src_default = { ApiConstructor, Call, ApiJSON };
 export {
-  src_default as default
+  ApiConstructor,
+  ApiJSON,
+  Call
 };
 //# sourceMappingURL=index.mjs.map

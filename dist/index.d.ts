@@ -68,10 +68,4 @@ declare class Call implements ApiFetcherInterface {
     initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
 
-declare const _default: {
-    ApiConstructor: typeof ApiConstructor;
-    Call: typeof Call;
-    ApiJSON: typeof ApiJSON;
-};
-
-export { _default as default };
+export { ApiConstructor, type ApiInterface, ApiJSON, Call };
