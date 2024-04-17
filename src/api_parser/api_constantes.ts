@@ -1,4 +1,4 @@
-import ApiInterface from "./api_interface";
+import ResponseInterface from "./api_interface";
 export abstract class ApiResponseMap {
     static map: Map<string, Object> = new Map([
         ["HTTP_400", { statusCode: 400, message: "Bad Request" }],
@@ -27,7 +27,7 @@ export abstract class ApiResponseMap {
         ["ERROR", { statusCode: 500, message: "\"{CODE}\" Not found in default ApiDefaultResponse", data: {} }],
     ])
 }
-export default abstract class ApiJSON implements ApiInterface {
+export default abstract class ApiJSON implements ResponseInterface {
     statusCode!: number;
     message!: string;
     token?: string | undefined;
@@ -35,9 +35,9 @@ export default abstract class ApiJSON implements ApiInterface {
     details?: unknown;
 
 
-    static get(key: string): ApiInterface {
+    static get(key: string): ResponseInterface {
         const error = JSON.parse(JSON.stringify(ApiResponseMap.map.get("ERROR")!)).message.replace("{CODE}", key);
         const get = ApiResponseMap.map.get(key) ?? error;
-        return get as ApiInterface;
+        return get as ResponseInterface;
     }
 }

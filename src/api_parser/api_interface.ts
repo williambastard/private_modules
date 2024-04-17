@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 
-export default interface ApiInterface {
+export default interface ResponseInterface {
     statusCode: number,
     message: string,
     token?: string,

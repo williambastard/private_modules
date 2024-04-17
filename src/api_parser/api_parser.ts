@@ -1,15 +1,15 @@
 import { Response } from "express";
-import ApiInterface from "./api_interface";
+import ResponseInterface from "./api_interface";
 
 export class ApiConstructor {
     _response!: Response;
-    _responseAPI?: ApiInterface;
+    _responseAPI?: ResponseInterface;
 
     constructor(_response: Response) {
         this._response = _response
         return this;
     }
-    setResponse(_responseAPI: ApiInterface) {
+    setResponse(_responseAPI: ResponseInterface) {
         this._responseAPI = _responseAPI;
         return this;
     }

@@ -1,6 +1,6 @@
 import { ErrorRequestHandler, Response, Request } from 'express';
 
-interface ApiInterface {
+interface ResponseInterface {
     statusCode: number;
     message: string;
     token?: string;
@@ -10,19 +10,19 @@ interface ApiInterface {
 
 declare class ApiConstructor {
     _response: Response;
-    _responseAPI?: ApiInterface;
+    _responseAPI?: ResponseInterface;
     constructor(_response: Response);
-    setResponse(_responseAPI: ApiInterface): this;
+    setResponse(_responseAPI: ResponseInterface): this;
     sendResponse(): Response<any, Record<string, any>>;
 }
 
-declare abstract class ApiJSON implements ApiInterface {
+declare abstract class ApiJSON implements ResponseInterface {
     statusCode: number;
     message: string;
     token?: string | undefined;
     data?: undefined | any;
     details?: unknown;
-    static get(key: string): ApiInterface;
+    static get(key: string): ResponseInterface;
 }
 
 interface ApiFetcherInterface {
@@ -68,4 +68,4 @@ declare class Call implements ApiFetcherInterface {
     initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
 
-export { ApiConstructor, type ApiInterface, ApiJSON, Call };
+export { ApiConstructor, ApiJSON, Call, type ResponseInterface };
