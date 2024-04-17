@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
 import messages from "../api_parser/api_messages";
 
-export default class Call implements ApiFetcherInterface {
+export default class call implements ApiFetcherInterface {
     _request: Request;
     _response: Response;
     _headers: Headers = new Headers();
@@ -19,7 +19,7 @@ export default class Call implements ApiFetcherInterface {
         this._response = _response;
         this.initHeader(_mstarget, _msendpoint, _msport);
     }
-    async fetch(): Promise<Call> {
+    async fetch(): Promise<call> {
         this.getFetchOptions();
         try {
             const responsePromise = await fetch(`${this.getTarget()}`, this._options)
@@ -31,8 +31,8 @@ export default class Call implements ApiFetcherInterface {
 
             this.setIsOK(_ms_response.ok);
             this.setStatus(_ms_response.status);
-            this.setCallResponse(_ms_response_json);
-            this.setCallHeaders(_ms_headers);
+            this.setcallResponse(_ms_response_json);
+            this.setcallHeaders(_ms_headers);
             this.setSession(_ms_user_session);
             this.setData(_ms_user_data);
         }
@@ -42,7 +42,7 @@ export default class Call implements ApiFetcherInterface {
 
             this.setIsOK(false);
             this.setStatus(500);
-            this.setCallResponse(error);
+            this.setcallResponse(error);
             this.setSession(false);
             this.setData(false);
         }
@@ -60,7 +60,7 @@ export default class Call implements ApiFetcherInterface {
         this._session = _session;
     }
 
-    setCallHeaders(_callHeaders: any) {
+    setcallHeaders(_callHeaders: any) {
         // Convertir les en-têtes en un objet clé-valeur
         const fetchHeaders: Record<string, string> = {};
         for (const [_headerKey, _headerValue] of _callHeaders.entries()) {
@@ -73,7 +73,7 @@ export default class Call implements ApiFetcherInterface {
         this._callHeaders = _callHeaders;
     }
 
-    setCallResponse(_callResponse: any) {
+    setcallResponse(_callResponse: any) {
         this._callResponse = _callResponse;
     }
 

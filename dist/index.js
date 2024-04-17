@@ -40,14 +40,14 @@ var __async = (__this, __arguments, generator) => {
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  ApiConstructor: () => ApiConstructor,
-  Call: () => Call,
-  messages: () => messages
+  call: () => call,
+  messages: () => messages,
+  parser: () => parser
 });
 module.exports = __toCommonJS(src_exports);
 
 // src/api_parser/api_parser.ts
-var ApiConstructor = class {
+var parser = class {
   constructor(_response) {
     this._response = _response;
     return this;
@@ -99,7 +99,7 @@ var messages = class {
 };
 
 // src/api_fetcher/api_fetcher.ts
-var Call = class {
+var call = class {
   constructor(_request, _response, _mstarget, _msendpoint, _msport) {
     this._headers = new Headers();
     this._options = {};
@@ -125,8 +125,8 @@ var Call = class {
         const _ms_user_session = (_b = _ms_user_data.session) != null ? _b : false;
         this.setIsOK(_ms_response.ok);
         this.setStatus(_ms_response.status);
-        this.setCallResponse(_ms_response_json);
-        this.setCallHeaders(_ms_headers);
+        this.setcallResponse(_ms_response_json);
+        this.setcallHeaders(_ms_headers);
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
       } catch (UncaughtException) {
@@ -134,7 +134,7 @@ var Call = class {
         error.details = UncaughtException;
         this.setIsOK(false);
         this.setStatus(500);
-        this.setCallResponse(error);
+        this.setcallResponse(error);
         this.setSession(false);
         this.setData(false);
       }
@@ -150,7 +150,7 @@ var Call = class {
   setSession(_session) {
     this._session = _session;
   }
-  setCallHeaders(_callHeaders) {
+  setcallHeaders(_callHeaders) {
     const fetchHeaders = {};
     for (const [_headerKey, _headerValue] of _callHeaders.entries()) {
       fetchHeaders[_headerKey] = _headerValue;
@@ -160,7 +160,7 @@ var Call = class {
     }
     this._callHeaders = _callHeaders;
   }
-  setCallResponse(_callResponse) {
+  setcallResponse(_callResponse) {
     this._callResponse = _callResponse;
   }
   setData(_data) {
@@ -224,8 +224,8 @@ var Call = class {
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  ApiConstructor,
-  Call,
-  messages
+  call,
+  messages,
+  parser
 });
 //# sourceMappingURL=index.js.map

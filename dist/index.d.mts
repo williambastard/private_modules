@@ -8,7 +8,7 @@ interface ResponseInterface {
     details?: Error | ErrorCallback | ErrorEvent | ErrorRequestHandler | unknown;
 }
 
-declare class ApiConstructor {
+declare class parser {
     _response: Response;
     _responseAPI?: ResponseInterface;
     constructor(_response: Response);
@@ -38,7 +38,7 @@ interface ApiFetcherInterface {
     _callHeaders: any;
 }
 
-declare class Call implements ApiFetcherInterface {
+declare class call implements ApiFetcherInterface {
     _request: Request;
     _response: Response;
     _headers: Headers;
@@ -50,12 +50,12 @@ declare class Call implements ApiFetcherInterface {
     _callResponse: any;
     _callHeaders: any;
     constructor(_request: Request, _response: Response, _mstarget: string, _msendpoint: string, _msport: number);
-    fetch(): Promise<Call>;
+    fetch(): Promise<call>;
     setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;
     setSession(_session: any | false): void;
-    setCallHeaders(_callHeaders: any): void;
-    setCallResponse(_callResponse: any): void;
+    setcallHeaders(_callHeaders: any): void;
+    setcallResponse(_callResponse: any): void;
     setData(_data: any | false): void;
     setHeaderKey(_headerKey: string, _headerValue: any): void;
     getHeaderKey(_headerKey: string): string | null;
@@ -68,4 +68,4 @@ declare class Call implements ApiFetcherInterface {
     initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
 
-export { ApiConstructor, Call, type ResponseInterface, messages };
+export { type ResponseInterface, call, messages, parser };
