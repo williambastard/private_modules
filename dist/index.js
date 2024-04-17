@@ -44,9 +44,6 @@ __export(src_exports, {
 });
 module.exports = __toCommonJS(src_exports);
 
-// src/api_parser/api_interface.ts
-var api_interface_exports = {};
-
 // src/api_parser/api_parser.ts
 var ApiConstructor = class {
   constructor(_response) {
@@ -225,5 +222,5 @@ var Call = class {
 };
 
 // src/index.ts
-var src_default = { ApiConstructor, Call, ApiJSON, ApiInterface: api_interface_exports };
+var src_default = { ApiConstructor, Call, ApiJSON };
 //# sourceMappingURL=index.js.map

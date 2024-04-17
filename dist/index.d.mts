@@ -8,11 +8,6 @@ interface ApiInterface {
     details?: Error | ErrorCallback | ErrorEvent | ErrorRequestHandler | unknown;
 }
 
-type ApiInterface$1_ApiInterface = ApiInterface;
-declare namespace ApiInterface$1 {
-  export type { ApiInterface$1_ApiInterface as ApiInterface, ApiInterface as default };
-}
-
 declare class ApiConstructor {
     _response: Response;
     _responseAPI?: ApiInterface;
@@ -77,7 +72,6 @@ declare const _default: {
     ApiConstructor: typeof ApiConstructor;
     Call: typeof Call;
     ApiJSON: typeof ApiJSON;
-    ApiInterface: typeof ApiInterface$1;
 };
 
 export { _default as default };
