@@ -4,6 +4,6 @@ export default interface ApiInterface {
     statusCode: number,
     message: string,
     token?: string,
-    data?: object | undefined,
+    data?: undefined | any,
     details?: Error | ErrorCallback | ErrorEvent | ErrorRequestHandler | unknown
 }

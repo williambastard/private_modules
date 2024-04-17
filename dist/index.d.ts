@@ -4,7 +4,7 @@ interface ApiInterface {
     statusCode: number;
     message: string;
     token?: string;
-    data?: object | undefined;
+    data?: undefined | any;
     details?: Error | ErrorCallback | ErrorEvent | ErrorRequestHandler | unknown;
 }
 
@@ -20,7 +20,7 @@ declare abstract class ApiJSON implements ApiInterface {
     statusCode: number;
     message: string;
     token?: string | undefined;
-    data?: object | undefined;
+    data?: undefined | any;
     details?: unknown;
     static get(key: string): ApiInterface;
 }

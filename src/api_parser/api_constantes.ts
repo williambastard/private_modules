@@ -31,7 +31,7 @@ export default abstract class ApiJSON implements ApiInterface {
     statusCode!: number;
     message!: string;
     token?: string | undefined;
-    data?: object | undefined;
+    data?: undefined | any;
     details?: unknown;
 
 
