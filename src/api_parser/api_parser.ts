@@ -2,10 +2,10 @@ import { Response } from "express";
 import ResponseInterface from "./api_interface";
 
 export default class parser {
-    _response!: Response;
+    _response!: Response | any;
     _responseAPI?: ResponseInterface;
 
-    constructor(_response: Response) {
+    constructor(_response: Response | any) {
         this._response = _response
         return this;
     }
