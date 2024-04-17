@@ -7,3 +7,6 @@ export default interface ApiInterface {
     data?: undefined | any,
     details?: Error | ErrorCallback | ErrorEvent | ErrorRequestHandler | unknown
 }
+export type {
+    ApiInterface
+}

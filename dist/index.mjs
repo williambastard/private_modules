@@ -19,6 +19,9 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
+// src/api_parser/api_interface.ts
+var api_interface_exports = {};
+
 // src/api_parser/api_parser.ts
 var ApiConstructor = class {
   constructor(_response) {
@@ -197,7 +200,7 @@ var Call = class {
 };
 
 // src/index.ts
-var src_default = { ApiConstructor, Call, ApiJSON };
+var src_default = { ApiConstructor, Call, ApiJSON, ApiInterface: api_interface_exports };
 export {
   src_default as default
 };
