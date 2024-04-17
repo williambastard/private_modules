@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { ApiFetcherInterface } from "./api_fetcher.interface";
-import ApiJSON from "../api_parser/api_constantes";
+import messages from "../api_parser/api_messages";
 
 export default class Call implements ApiFetcherInterface {
     _request: Request;
@@ -37,7 +37,7 @@ export default class Call implements ApiFetcherInterface {
             this.setData(_ms_user_data);
         }
         catch (UncaughtException) {
-            let error = ApiJSON.get("HTTP_500");
+            let error = messages.use("HTTP_500");
             error.details = UncaughtException;
 
             this.setIsOK(false);

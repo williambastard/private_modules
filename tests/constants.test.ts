@@ -1,6 +1,6 @@
-import Api from '../src';
+import * as Api from '../src';
 
 test('test constants import', () => {
-    const result = Api.ApiJSON.get("OK");
-    expect(result).toBe(Api.ApiJSON.get("OK"));
+    const result = Api.messages.use("OK");
+    expect(result).toBe(Api.messages.use("OK"));
 });

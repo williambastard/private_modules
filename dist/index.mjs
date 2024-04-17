@@ -35,7 +35,7 @@ var ApiConstructor = class {
   }
 };
 
-// src/api_parser/api_constantes.ts
+// src/api_parser/api_messages.ts
 var ApiResponseMap = class {
 };
 ApiResponseMap.map = /* @__PURE__ */ new Map([
@@ -62,8 +62,8 @@ ApiResponseMap.map = /* @__PURE__ */ new Map([
   ["HTTP_208", { statusCode: 208, message: "Already Reported", data: {} }],
   ["ERROR", { statusCode: 500, message: '"{CODE}" Not found in default ApiDefaultResponse', data: {} }]
 ]);
-var ApiJSON = class {
-  static get(key) {
+var messages = class {
+  static use(key) {
     var _a;
     const error = JSON.parse(JSON.stringify(ApiResponseMap.map.get("ERROR"))).message.replace("{CODE}", key);
     const get = (_a = ApiResponseMap.map.get(key)) != null ? _a : error;
@@ -103,7 +103,7 @@ var Call = class {
         this.setSession(_ms_user_session);
         this.setData(_ms_user_data);
       } catch (UncaughtException) {
-        let error = ApiJSON.get("HTTP_500");
+        let error = messages.use("HTTP_500");
         error.details = UncaughtException;
         this.setIsOK(false);
         this.setStatus(500);
@@ -197,7 +197,7 @@ var Call = class {
 };
 export {
   ApiConstructor,
-  ApiJSON,
-  Call
+  Call,
+  messages
 };
 //# sourceMappingURL=index.mjs.map

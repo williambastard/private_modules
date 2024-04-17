@@ -16,13 +16,13 @@ declare class ApiConstructor {
     sendResponse(): Response<any, Record<string, any>>;
 }
 
-declare abstract class ApiJSON implements ResponseInterface {
+declare abstract class messages implements ResponseInterface {
     statusCode: number;
     message: string;
     token?: string | undefined;
     data?: undefined | any;
     details?: unknown;
-    static get(key: string): ResponseInterface;
+    static use(key: string): ResponseInterface;
 }
 
 interface ApiFetcherInterface {
@@ -68,4 +68,4 @@ declare class Call implements ApiFetcherInterface {
     initHeader(_mstarget: string, _msendpoint: string, _msport: number): void;
 }
 
-export { ApiConstructor, ApiJSON, Call, type ResponseInterface };
+export { ApiConstructor, Call, type ResponseInterface, messages };
