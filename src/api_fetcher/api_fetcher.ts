@@ -19,6 +19,11 @@ export default class call implements ApiFetcherInterface {
         this._response = _response;
         this.initHeader(_mstarget, _msendpoint, _msport);
     }
+
+    setGatewayIp(_gatewayIp: string) {
+        this.setHeaderKey("ms-secure-ip", _gatewayIp);
+    }
+
     async fetch(): Promise<call> {
         this.getFetchOptions();
         try {

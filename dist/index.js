@@ -112,6 +112,9 @@ var call = class {
     this._response = _response;
     this.initHeader(_mstarget, _msendpoint, _msport);
   }
+  setGatewayIp(_gatewayIp) {
+    this.setHeaderKey("ms-secure-ip", _gatewayIp);
+  }
   fetch() {
     return __async(this, null, function* () {
       var _a, _b;
