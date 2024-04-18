@@ -22,6 +22,7 @@ export default class call implements ApiFetcherInterface {
 
     setGatewayIp(_gatewayIp: string) {
         this.setHeaderKey("ms-secure-ip", _gatewayIp);
+        return this;
     }
 
     async fetch(): Promise<call> {

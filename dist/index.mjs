@@ -87,6 +87,7 @@ var call = class {
   }
   setGatewayIp(_gatewayIp) {
     this.setHeaderKey("ms-secure-ip", _gatewayIp);
+    return this;
   }
   fetch() {
     return __async(this, null, function* () {

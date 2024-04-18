@@ -50,7 +50,7 @@ declare class call implements ApiFetcherInterface {
     _callResponse: any;
     _callHeaders: any;
     constructor(_request: Request, _response: Response, _mstarget: string, _msendpoint: string, _msport: number);
-    setGatewayIp(_gatewayIp: string): void;
+    setGatewayIp(_gatewayIp: string): this;
     fetch(): Promise<call>;
     setStatus(_status: number): void;
     setIsOK(_isOK: boolean): void;
