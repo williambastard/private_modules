@@ -18,7 +18,7 @@ const { Response, Request } = require("express");
 const Call = require("private_modules");
 
 // Créer une instance de la classe Call
-const apiCaller = new Call(request, response, "target", "endpoint", 3000);
+const apiCaller = new Call(request, response, "target", "endpoint", msport);
 
 // Appeler l'API
 apiCaller.fetch()
@@ -39,6 +39,7 @@ response: Response: L'objet Response d'Express.
 mstarget: string: La cible de l'API.
 msendpoint: string: Le point de terminaison de l'API.
 msport: number: Le port de l'API.
+
 setGatewayIp(gatewayIp: string): Call
 Définit l'adresse IP de la passerelle.
 
@@ -78,7 +79,9 @@ headerValue: any: La valeur de l'en-tête.
 getHeaderKey(headerKey: string): string | undefined
 Récupère la valeur de l'en-tête.
 
-headerKey: string: Le nom de l'en-tête.
+headerKey: string: 
+Le nom de l'en-tête.
+
 getToken(): string
 Récupère le jeton d'authentification de la requête.
 
