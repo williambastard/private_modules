@@ -1,109 +1,71 @@
-# API Fetcher
+# 📄 README.md
 
-Ce module fournit une classe pour appeler des API à partir d'un serveur Express.
+## 🌐 Informations Générales
 
-## Installation
+Ce projet est une bibliothèque de modules Node.js qui fournissent une abstraction pour effectuer des appels API REST, gérer les réponses, et intégrer des tests unitaires pour garantir la stabilité et la fiabilité du code.
 
-```bash
+Il comprend des configurations pour TypeScript, Jest (un système de test), et utilise `tsup` pour le processus de construction et le bundling des modules.
 
-npm install https://github.com/williambastard/private_modules.git#main
+Le projet est configuré de manière à pouvoir être compilé en CommonJS ainsi qu'en modules ES pour une interopérabilité maximale.
+
+## 🧬 Structure du Projet
+
+Voici une représentation de la structure de répertoires du projet et de son contenu :
 
 ```
+.
+├── jest.config.js      # Configuration de Jest pour les tests unitaires
+├── package.json        # Fichier de configuration du projet Node.js
+├── src                 # Dossier contenant le code source du projet
+│   ├── api_fetcher     # Gestion des requêtes API
+│   │   ├── api_fetcher.interface.ts # Interface définissant la structure des fetchers
+│   │   └── api_fetcher.ts           # Implémentation de l'interface de fetcher
+│   ├── api_parser      # Gestion des réponses de l'API
+│   │   ├── api_interface.ts # Interface pour les réponses structurées
+│   │   ├── api_messages.ts  # Mappage des messages des réponses API
+│   │   └── api_parser.ts    # Parser pour traiter et renvoyer les réponses de l'API
+│   ├── index.ts         # Point d'entrée pour exposer les modules de src à d'autres utilisateurs
+│   └── tests            # Dossier pour les tests unitaires
+│       ├── constants.test.ts # Tests pour les constantes API
+│       └── parser.test.ts    # Tests pour le parser d'API
+├── tsconfig.json       # Configuration de TypeScript pour le projet
+└── tsup.config.ts      # Configuration pour tsup, l'outil de build
 
-### Utilisation
-Pour utiliser cette classe, importez-la dans votre projet comme suit :
-
-```javascript
-const { Response, Request } = require("express");
-const Call = require("private_modules");
-
-// Créer une instance de la classe Call
-const apiCaller = new Call(request, response, "target", "endpoint", msport);
-
-// Appeler l'API
-apiCaller.fetch()
-    .then(() => {
-        // Gérer la réponse ici
-    })
-    .catch((error) => {
-        // Gérer les erreurs ici
-    });
+6 dossiers, 10 fichiers
 ```
 
-# Documentation
-## Méthodes
+### Description des fichiers et répertoires:
 
-constructor(request, response, mstarget, msendpoint, msport) : Constructeur de la classe Call.
-request: Request: L'objet Request d'Express.
-response: Response: L'objet Response d'Express.
-mstarget: string: La cible de l'API.
-msendpoint: string: Le point de terminaison de l'API.
-msport: number: Le port de l'API.
+- `jest.config.js` : Configuration de Jest qui précise l'environnement de test et l'utilisation de ts-jest pour transpiler les tests typescript.
+- `package.json` : Contient les métadonnées du projet, les scripts pour construire et tester le projet, ainsi que les dépendances et les versions respectives nécessaires pour le projet.
+- `src` : Contient le code source principal du projet, notamment les définitions, implémentations et exportations des classes et interfaces clés autour des fonctionnalités d'appel et de parsing d'API.
+- `src/api_fetcher` : Inclut les entités responsables de la construction et l'exécution des appels API.
+- `src/api_parser` : Comprend les outils pour normaliser et gérer les réponses reçues suite aux appels API, en y associer un statut et un message.
+- `src/index.ts` : Centralise les exportations des modules définis dans `src` afin de faciliter leur utilisation en tant que package.
+- `src/tests` : Contient les tests unitaires qui vérifient la logique et la fiabilité des modules d'appel et de parsing d'API.
+- `tsconfig.json` : Configure les paramètres de TypeScript, y compris les chemins de sortie, le mode strict, et les options de compatibilité ES.
+- `tsup.config.ts` : Définit la configuration de l'outil de build `tsup` qui détermine le format de build, les options de sourcemap, et gère également le nettoyage du répertoire de sortie.
 
-setGatewayIp(gatewayIp: string): Call
-Définit l'adresse IP de la passerelle.
+## 🛠️ Comment Utiliser
 
-gatewayIp: string: L'adresse IP de la passerelle.
-fetch(): Promise<Call>
-Effectue l'appel à l'API.
+Pour utiliser ce projet, suivez ces étapes :
 
-setStatus(status: number): void
-Définit le statut de la réponse.
+1. Installer les dépendances avec la commande :
+   ```sh
+   npm install
+   ```
+2. Compiler le projet TypeScript en JavaScript :
+    ```sh
+    npm run build
+    ```
+3. Exécuter les tests unitaires pour s'assurer que tout fonctionne correctement :
+    ```sh
+    npm test
+    ```
 
-status: number: Le statut HTTP de la réponse.
-setIsOK(isOK: boolean): void
-Définit si la réponse est OK ou non.
-
-isOK: boolean: true si la réponse est OK, sinon false.
-setSession(session: any | false): void
-Définit la session de l'utilisateur.
-
-session: any | false: La session de l'utilisateur.
-setcallHeaders(callHeaders: any): void
-Définit les en-têtes de la réponse.
-
-callHeaders: any: Les en-têtes de la réponse.
-setcallResponse(callResponse: any): void
-Définit la réponse de l'appel.
-
-callResponse: any: La réponse de l'appel.
-setData(data: any | false): void
-Définit les données de la réponse.
-
-data: any | false: Les données de la réponse.
-setHeaderKey(headerKey: string, headerValue: any): void
-Ajoute un en-tête personnalisé.
-
-headerKey: string: Le nom de l'en-tête.
-headerValue: any: La valeur de l'en-tête.
-getHeaderKey(headerKey: string): string | undefined
-Récupère la valeur de l'en-tête.
-
-headerKey: string: 
-Le nom de l'en-tête.
-
-getToken(): string
-Récupère le jeton d'authentification de la requête.
-
-getOrigin(): string
-Récupère l'origine de la requête.
-
-getFetchOptions(): RequestInit
-Récupère les options de la requête fetch.
-
-getTarget(): string
-Récupère la cible de l'appel.
-
-formatKeyName(headerKey: string): string
-Formate le nom de l'en-tête.
-
-headerKey: string: Le nom de l'en-tête.
-initFetchOptions(): void
-Initialise les options de la requête fetch.
-
-initHeader(mstarget: string, msendpoint: string, msport: number): void
-Initialise les en-têtes de la requête.
-
-mstarget: string: La cible de l'API.
-msendpoint: string: Le point de terminaison de l'API.
-msport: number: Le port de l'API.
+Pour utiliser des modules spécifiques dans votre code, vous pouvez les importer en utilisant `require` ou `import` selon votre environnement, par exemple :
+```js
+const { call, parser, messages, ResponseInterface } = require('private_modules');
+// ou avec ES modules
+import { call, parser, messages, ResponseInterface } from 'private_modules';
+```
