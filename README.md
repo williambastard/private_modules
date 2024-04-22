@@ -1,71 +1,237 @@
-# 📄 README.md
+<p align="center">
+  <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100" />
+</p>
+<p align="center">
+    <h1 align="center">PRIVATE_MODULES</h1>
+</p>
+<p align="center">
+    <em>HTTP error 401 for prompt `slogan`</em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/license/williambastard/private_modules?style=flat&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/williambastard/private_modules?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/williambastard/private_modules?style=flat&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/williambastard/private_modules?style=flat&color=0080ff" alt="repo-language-count">
+<p>
+<p align="center">
+		<em>Developed with the software and tools below.</em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black" alt="JavaScript">
+	<img src="https://img.shields.io/badge/Jest-C21325.svg?style=flat&logo=Jest&logoColor=white" alt="Jest">
+	<img src="https://img.shields.io/badge/tsnode-3178C6.svg?style=flat&logo=ts-node&logoColor=white" alt="tsnode">
+	<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=TypeScript&logoColor=white" alt="TypeScript">
+	<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" alt="JSON">
+	<img src="https://img.shields.io/badge/Express-000000.svg?style=flat&logo=Express&logoColor=white" alt="Express">
+</p>
+<hr>
 
-## 🌐 Informations Générales
+##  Quick Links
 
-Ce projet est une bibliothèque de modules Node.js qui fournissent une abstraction pour effectuer des appels API REST, gérer les réponses, et intégrer des tests unitaires pour garantir la stabilité et la fiabilité du code.
+> - [ Overview](#-overview)
+> - [ Features](#-features)
+> - [ Repository Structure](#-repository-structure)
+> - [ Modules](#-modules)
+> - [ Getting Started](#-getting-started)
+>   - [ Installation](#-installation)
+>   - [ Running private_modules](#-running-private_modules)
+>   - [ Tests](#-tests)
+> - [ Project Roadmap](#-project-roadmap)
+> - [ Contributing](#-contributing)
+> - [ License](#-license)
+> - [ Acknowledgments](#-acknowledgments)
 
-Il comprend des configurations pour TypeScript, Jest (un système de test), et utilise `tsup` pour le processus de construction et le bundling des modules.
+---
 
-Le projet est configuré de manière à pouvoir être compilé en CommonJS ainsi qu'en modules ES pour une interopérabilité maximale.
+##  Overview
 
-## 🧬 Structure du Projet
+HTTP error 401 for prompt `overview`
 
-Voici une représentation de la structure de répertoires du projet et de son contenu :
+---
 
+##  Features
+
+HTTP error 401 for prompt `features`
+
+---
+
+##  Repository Structure
+
+```sh
+└── private_modules/
+    ├── README.md
+    ├── dist
+    │   ├── index.d.mts
+    │   ├── index.d.ts
+    │   ├── index.js
+    │   ├── index.js.map
+    │   ├── index.mjs
+    │   └── index.mjs.map
+    ├── jest.config.js
+    ├── package-lock.json
+    ├── package.json
+    ├── src
+    │   ├── api_fetcher
+    │   │   ├── api_fetcher.interface.ts
+    │   │   └── api_fetcher.ts
+    │   ├── api_parser
+    │   │   ├── api_interface.ts
+    │   │   ├── api_messages.ts
+    │   │   └── api_parser.ts
+    │   └── index.ts
+    ├── tests
+    │   ├── constants.test.ts
+    │   └── parser.test.ts
+    ├── tsconfig.json
+    └── tsup.config.ts
 ```
-.
-├── jest.config.js      # Configuration de Jest pour les tests unitaires
-├── package.json        # Fichier de configuration du projet Node.js
-├── src                 # Dossier contenant le code source du projet
-│   ├── api_fetcher     # Gestion des requêtes API
-│   │   ├── api_fetcher.interface.ts # Interface définissant la structure des fetchers
-│   │   └── api_fetcher.ts           # Implémentation de l'interface de fetcher
-│   ├── api_parser      # Gestion des réponses de l'API
-│   │   ├── api_interface.ts # Interface pour les réponses structurées
-│   │   ├── api_messages.ts  # Mappage des messages des réponses API
-│   │   └── api_parser.ts    # Parser pour traiter et renvoyer les réponses de l'API
-│   ├── index.ts         # Point d'entrée pour exposer les modules de src à d'autres utilisateurs
-│   └── tests            # Dossier pour les tests unitaires
-│       ├── constants.test.ts # Tests pour les constantes API
-│       └── parser.test.ts    # Tests pour le parser d'API
-├── tsconfig.json       # Configuration de TypeScript pour le projet
-└── tsup.config.ts      # Configuration pour tsup, l'outil de build
 
-6 dossiers, 10 fichiers
+---
+
+##  Modules
+
+<details closed><summary>.</summary>
+
+| File                                                                                                 | Summary                                       |
+| ---                                                                                                  | ---                                           |
+| [tsconfig.json](https://github.com/williambastard/private_modules/blob/master/tsconfig.json)         | HTTP error 401 for prompt `tsconfig.json`     |
+| [tsup.config.ts](https://github.com/williambastard/private_modules/blob/master/tsup.config.ts)       | HTTP error 401 for prompt `tsup.config.ts`    |
+| [package.json](https://github.com/williambastard/private_modules/blob/master/package.json)           | HTTP error 401 for prompt `package.json`      |
+| [jest.config.js](https://github.com/williambastard/private_modules/blob/master/jest.config.js)       | HTTP error 401 for prompt `jest.config.js`    |
+| [package-lock.json](https://github.com/williambastard/private_modules/blob/master/package-lock.json) | HTTP error 401 for prompt `package-lock.json` |
+
+</details>
+
+<details closed><summary>src</summary>
+
+| File                                                                                   | Summary                                  |
+| ---                                                                                    | ---                                      |
+| [index.ts](https://github.com/williambastard/private_modules/blob/master/src/index.ts) | HTTP error 401 for prompt `src/index.ts` |
+
+</details>
+
+<details closed><summary>src.api_fetcher</summary>
+
+| File                                                                                                                               | Summary                                                              |
+| ---                                                                                                                                | ---                                                                  |
+| [api_fetcher.ts](https://github.com/williambastard/private_modules/blob/master/src/api_fetcher/api_fetcher.ts)                     | HTTP error 401 for prompt `src/api_fetcher/api_fetcher.ts`           |
+| [api_fetcher.interface.ts](https://github.com/williambastard/private_modules/blob/master/src/api_fetcher/api_fetcher.interface.ts) | HTTP error 401 for prompt `src/api_fetcher/api_fetcher.interface.ts` |
+
+</details>
+
+<details closed><summary>src.api_parser</summary>
+
+| File                                                                                                              | Summary                                                     |
+| ---                                                                                                               | ---                                                         |
+| [api_interface.ts](https://github.com/williambastard/private_modules/blob/master/src/api_parser/api_interface.ts) | HTTP error 401 for prompt `src/api_parser/api_interface.ts` |
+| [api_parser.ts](https://github.com/williambastard/private_modules/blob/master/src/api_parser/api_parser.ts)       | HTTP error 401 for prompt `src/api_parser/api_parser.ts`    |
+| [api_messages.ts](https://github.com/williambastard/private_modules/blob/master/src/api_parser/api_messages.ts)   | HTTP error 401 for prompt `src/api_parser/api_messages.ts`  |
+
+</details>
+
+---
+
+##  Getting Started
+
+***Requirements***
+
+Ensure you have the following dependencies installed on your system:
+
+* **TypeScript**: `version x.y.z`
+
+###  Installation
+
+1. Clone the private_modules repository:
+
+```sh
+git clone https://github.com/williambastard/private_modules
 ```
 
-### Description des fichiers et répertoires:
+2. Change to the project directory:
 
-- `jest.config.js` : Configuration de Jest qui précise l'environnement de test et l'utilisation de ts-jest pour transpiler les tests typescript.
-- `package.json` : Contient les métadonnées du projet, les scripts pour construire et tester le projet, ainsi que les dépendances et les versions respectives nécessaires pour le projet.
-- `src` : Contient le code source principal du projet, notamment les définitions, implémentations et exportations des classes et interfaces clés autour des fonctionnalités d'appel et de parsing d'API.
-- `src/api_fetcher` : Inclut les entités responsables de la construction et l'exécution des appels API.
-- `src/api_parser` : Comprend les outils pour normaliser et gérer les réponses reçues suite aux appels API, en y associer un statut et un message.
-- `src/index.ts` : Centralise les exportations des modules définis dans `src` afin de faciliter leur utilisation en tant que package.
-- `src/tests` : Contient les tests unitaires qui vérifient la logique et la fiabilité des modules d'appel et de parsing d'API.
-- `tsconfig.json` : Configure les paramètres de TypeScript, y compris les chemins de sortie, le mode strict, et les options de compatibilité ES.
-- `tsup.config.ts` : Définit la configuration de l'outil de build `tsup` qui détermine le format de build, les options de sourcemap, et gère également le nettoyage du répertoire de sortie.
+```sh
+cd private_modules
+```
 
-## 🛠️ Comment Utiliser
+3. Install the dependencies:
 
-Pour utiliser ce projet, suivez ces étapes :
+```sh
+npm install
+```
 
-1. Installer les dépendances avec la commande :
+###  Running private_modules
+
+Use the following command to run private_modules:
+
+```sh
+npm run build && node dist/main.js
+```
+
+###  Tests
+
+To execute tests, run:
+
+```sh
+npm test
+```
+
+---
+
+##  Project Roadmap
+
+- [X] `► INSERT-TASK-1`
+- [ ] `► INSERT-TASK-2`
+- [ ] `► ...`
+
+---
+
+##  Contributing
+
+Contributions are welcome! Here are several ways you can contribute:
+
+- **[Submit Pull Requests](https://github.com/williambastard/private_modules/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/williambastard/private_modules/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/williambastard/private_modules/issues)**: Submit bugs found or log feature requests for Private_modules.
+
+<details closed>
+    <summary>Contributing Guidelines</summary>
+
+1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
    ```sh
-   npm install
+   git clone https://github.com/williambastard/private_modules
    ```
-2. Compiler le projet TypeScript en JavaScript :
-    ```sh
-    npm run build
-    ```
-3. Exécuter les tests unitaires pour s'assurer que tout fonctionne correctement :
-    ```sh
-    npm test
-    ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to GitHub**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
 
-Pour utiliser des modules spécifiques dans votre code, vous pouvez les importer en utilisant `require` ou `import` selon votre environnement, par exemple :
-```js
-const { call, parser, messages, ResponseInterface } = require('private_modules');
-// ou avec ES modules
-import { call, parser, messages, ResponseInterface } from 'private_modules';
-```
+Once your PR is reviewed and approved, it will be merged into the main branch.
+
+</details>
+
+---
+
+##  License
+
+This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
+
+---
+
+##  Acknowledgments
+
+- List any resources, contributors, inspiration, etc. here.
+
+[**Return**](#-quick-links)
+
+---
